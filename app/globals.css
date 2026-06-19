@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
 :root {
   --background: #ffffff;
@@ -10,6 +12,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-poppins: var(--font-poppins);
+  --font-garamond: var(--font-eb-garamond);
+  --font-instrument: var(--font-instrument-sans);
 }
 
 @media (prefers-color-scheme: dark) {
