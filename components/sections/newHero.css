@@ -22,22 +22,17 @@
     );
 
   background-size: 300% 300%;
-  opacity: 0;
-}
-
-/* Loop animado ativado somente quando estiver pronto */
-.is-ready .animated-gradient {
   animation: gradientMove 18s ease infinite;
 }
 
 /* Vídeo do mapa mundi como fundo do Hero */
-.hero-video {
+.hero-video-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
+  opacity: 0.2;
   /* Opacidade sutil para compor o fundo escuro de forma elegante */
   pointer-events: none;
 }
@@ -108,10 +103,6 @@
   --opacity-max: 1.0;
   --scale-min: 0.96;
   --scale-max: 1.08;
-  opacity: 0;
-}
-
-.is-ready .hero-glow {
   animation:
     breath 10s ease-in-out infinite,
     glowColorCycle 18s ease-in-out infinite;
@@ -127,17 +118,12 @@
   /* mesmo tamanho da linha horizontal */
   height: 550px;
   /* altura que atinge e ilumina o logo central */
-  transform: translateX(-50%) scaleY(0);
-  transform-origin: bottom center;
-  opacity: 0;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.is-ready .cone {
+  transform: translateX(-50%);
   animation:
     breath var(--duration) ease-in-out infinite,
     spotlightsColorCycle 18s ease-in-out infinite;
+  overflow: visible;
+  pointer-events: none;
 }
 
 /* Feixe de luz interno com corte triangular (trapézio cônico de luz) */
@@ -186,27 +172,6 @@
   --scale-max: 1.02;
   --glow-color-start: rgba(255, 255, 200, 0.45);
   --glow-color-end: rgba(255, 215, 0, 0.12);
-}
-
-/* Linha de luz horizontal brilhante na base com transição de cores */
-.light-floor {
-  position: absolute;
-  left: 50%;
-  bottom: 80px;
-  width: min(1400px, 90vw);
-  height: 2px;
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: center;
-  background: rgba(255, 255, 220, 0.95);
-  box-shadow:
-    0 0 25px rgba(255, 215, 0, 0.9),
-    0 0 60px rgba(255, 200, 0, 0.75),
-    0 0 120px rgba(255, 170, 0, 0.6),
-    0 0 250px rgba(255, 140, 0, 0.45);
-}
-
-.is-ready .light-floor {
-  animation: floorColorCycle 18s ease-in-out infinite;
 }
 
 /* Logo central "W" com gradiente dourado metálico e sombra de luz */
@@ -312,30 +277,105 @@
   transition: fill 0.5s ease;
 }
 
-/* Estilos iniciais de prevenção de FOUC */
-.hero-sub,
-.hero-title,
-.hero-desc,
-.hero-btn {
-  opacity: 0;
-  transform: translateY(30px);
-  will-change: opacity, transform;
+/* Tela de carregamento preta com transição de fade-out */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #000000;
+  z-index: 45; /* Aumentado para cobrir o conteúdo durante a entrada */
+  transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.5s;
+  pointer-events: none; /* Evita capturar cliques depois que desaparecer */
+  opacity: 1;
+  visibility: visible;
 }
 
-.hero-image {
+/* Estado após o carregamento da página */
+.loading-overlay.fade-out {
   opacity: 0;
-  transform: translateX(50px) scale(0.95);
-  will-change: opacity, transform;
+  visibility: hidden;
+}
+
+/* Logotipo posicionado acima da tela de carregamento */
+.logo-container {
+  position: absolute; /* Alterado para absoluto para centralizar sem quebrar o fluxo do conteúdo */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50; /* Z-index maior que o loading-overlay */
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 1;
+}
+
+.logo-container.fade-out {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% - 20px)) scale(0.95);
+  pointer-events: none;
 }
 
 .hero-line {
   transform: scaleX(0);
   transform-origin: center;
   will-change: transform;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.hero-partners {
-  opacity: 0;
-  transform: translateY(20px);
-  will-change: opacity, transform;
+/* Exibe a linha divisória com transição suave */
+.is-ready .hero-line {
+  transform: scaleX(1);
+}
+
+/* Estilos responsivos para a imagem do consultor (Maurício) */
+.hero-image {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px; /* Mantém a proporção no mobile */
+  z-index: 0; /* Fica no fundo */
+  opacity: 0.80; /* Opacidade menor para dar legibilidade ao texto */
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+@media (min-width: 768px) {
+  .hero-image {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 50%; /* Ocupa metade do container no desktop */
+    max-width: 528px; /* Largura máxima do Figma */
+    z-index: auto;
+    opacity: 1;
+    pointer-events: auto;
+    justify-content: flex-end;
+  }
+}
+
+/* Linha de luz horizontal brilhante na base com transição de cores */
+.light-floor {
+  position: absolute;
+  left: 50%;
+  bottom: 80px;
+  width: min(1400px, 90vw);
+  height: 2px;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  background: rgba(255, 255, 220, 0.95);
+  box-shadow:
+    0 0 25px rgba(255, 215, 0, 0.9),
+    0 0 60px rgba(255, 200, 0, 0.75),
+    0 0 120px rgba(255, 170, 0, 0.6),
+    0 0 250px rgba(255, 140, 0, 0.45);
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Ativa a exibição da linha de luz e inicia o ciclo de cores quando pronto */
+.is-ready .light-floor {
+  transform: translateX(-50%) scaleX(1);
+  animation: floorColorCycle 18s ease-in-out infinite;
 }

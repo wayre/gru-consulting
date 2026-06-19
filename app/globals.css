@@ -27,3 +27,22 @@ body {
   color: var(--foreground);
   font-family: var(--font-poppins), sans-serif;
 }
+
+/* Animação para a entrada do Header (fade-in de cima para baixo com delay) */
+@keyframes headerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-header-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+  animation: headerSlideDown 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 1300ms;
+}

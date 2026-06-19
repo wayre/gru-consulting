@@ -20,7 +20,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl transition-colors duration-300">
+    <header className="absolute top-0 left-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl transition-colors duration-300 animate-header-enter">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Logo da GRU Consulting */}
