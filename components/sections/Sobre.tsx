@@ -57,14 +57,14 @@ export default function Sobre() {
   ];
 
   return (
-    <section className="about-section w-full bg-[#F2F2F2] py-16 md:py-24 lg:pt-[140px] lg:pb-[120px] text-zinc-900 font-poppins">
+    <section className="about-section w-full bg-[#F2F2F2] py-16 md:py-24 lg:pt-35 lg:pb-62.5 text-zinc-900 font-poppins">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Bloco de introdução principal da consultoria */}
-        <div className="about-main-text mx-auto max-w-[925px] text-center mb-10">
+        <div className="about-main-text mx-auto max-w-231.25 text-center mb-10">
           <p
             ref={textRef}
-            className="font-instrument text-2xl md:text-3xl lg:text-[36px] lg:leading-[55px] text-[#606060] font-normal"
+            className="font-instrument text-2xl md:text-3xl lg:text-[36px] lg:leading-13.75 text-[#606060] font-normal"
           >
             {"Somos uma consultoria especializada em Comércio Exterior. Unimos experiência técnica e suporte completo em logística, despacho aduaneiro e câmbio para simplificar operações internacionais.".split(" ").map((word, wIdx, arr) => (
               <span key={wIdx} className="inline-block overflow-hidden align-bottom whitespace-nowrap">
@@ -81,14 +81,14 @@ export default function Sobre() {
         </div>
 
         {/* Separador horizontal cinza conforme o Figma */}
-        <div className="mx-auto my-10 h-[7px] w-[305px] bg-[#D9D9D9] rounded-full" />
+        <div className="mx-auto my-10 h-1.75 w-76.25 bg-[#D9D9D9] rounded-full" />
 
         {/* Bloco sobre inteligência e viabilização */}
-        <div className="mx-auto max-w-[1113px] grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center my-16 lg:my-20">
+        <div className="mx-auto max-w-278.25 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center my-16 lg:my-20">
 
           {/* Lado Esquerdo: Logo Box e Botão de Falar no WhatsApp */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-[399px] aspect-[399/269]">
+            <div className="relative w-full max-w-99.75 aspect-399/269">
               <Image
                 src="/logo-about.png"
                 alt="Logo Box GRU Consulting"
@@ -103,7 +103,7 @@ export default function Sobre() {
               href="https://wa.me/5500000000000"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex h-[35px] w-[165px] items-center justify-center rounded-[9px] bg-[#236253] text-[10px] font-semibold uppercase tracking-wider text-white shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#1a4b3f] hover:scale-105"
+              className="mt-8 flex h-8.75 w-41.25 items-center justify-center rounded-[9px] bg-[#236253] text-[10px] font-semibold uppercase tracking-wider text-white shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#1a4b3f] hover:scale-105"
             >
               Falar no WhatsApp
             </Link>
@@ -138,14 +138,14 @@ export default function Sobre() {
           </span>
 
           {/* Grid de Cards dos Segmentos Atendidos com divisores internos */}
-          <div className="w-full max-w-[842px] flex flex-col md:flex-row md:items-stretch rounded-[4px] overflow-hidden divide-y md:divide-y-0 md:divide-x divide-[#D9D9D9]">
+          <div className="w-full max-w-210.5 flex flex-col md:flex-row md:items-stretch rounded-sm overflow-hidden divide-y md:divide-y-0 md:divide-x divide-[#D9D9D9]">
             {segmentos.map((seg, idx) => (
               <div
                 key={idx}
                 className="flex-1 bg-[#FCFAF6] px-6 py-10 md:py-8 lg:px-7 lg:py-9 flex flex-col items-center text-center gap-5 transition-colors duration-300 hover:bg-[#FAF6EE] group"
               >
                 {/* Ícone correspondente do segmento */}
-                <div className="relative w-[60px] h-[60px] transition-transform duration-300 group-hover:scale-110">
+                <div className="relative w-15 h-15 transition-transform duration-300 group-hover:scale-110">
                   <Image
                     src={seg.icon}
                     alt={`Ícone do segmento ${seg.title}`}
@@ -160,7 +160,7 @@ export default function Sobre() {
                 </h3>
 
                 {/* Descrição resumida do segmento */}
-                <p className="font-instrument text-sm text-[#131B26]/70 leading-relaxed max-w-[215px]">
+                <p className="font-instrument text-sm text-[#131B26]/70 leading-relaxed max-w-53.75">
                   {seg.description}
                 </p>
               </div>

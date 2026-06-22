@@ -2,9 +2,9 @@
 
 import React from "react";
 import { Header } from "../components/layout/Header";
-import { Hero } from "../components/sections/Hero";
 import NewHero from "@/components/sections/newHero";
 import Sobre from "@/components/sections/Sobre";
+import LogisticaEventosArte from "@/components/sections/LogisticaEventosArte";
 
 export default function Home() {
   return (
@@ -17,6 +17,7 @@ export default function Home() {
         {/* <Hero /> */}
         <NewHero />
         <Sobre />
+        <LogisticaEventosArte />
       </main>
     </div>
   );
