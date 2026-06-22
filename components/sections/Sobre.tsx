@@ -116,11 +116,11 @@ export default function Sobre() {
             </span>
 
             <h2 className="flex flex-col gap-1">
-              <span className="font-poppins text-3xl md:text-[46px] font-semibold text-[#002047] leading-tight">
+              <span className="font-poppins text-3xl md:text-[40px] font-semibold text-[#002047] leading-tight">
                 Não apenas enviamos.
               </span>
               <span className="font-poppins text-4xl md:text-[58px] font-light text-[#3F3731]/70 leading-tight">
-                Viabilizamos o seu negócio.
+                Viabilizamos <br className="hidden md:block" />o seu negócio.
               </span>
             </h2>
 

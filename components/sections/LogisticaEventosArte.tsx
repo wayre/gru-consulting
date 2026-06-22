@@ -111,17 +111,6 @@ export default function LogisticaEventosArte() {
         {/* Overlay escuro elegante para garantir contraste com o texto */}
         <div className="absolute inset-0 bg-black/40" />
 
-        {/* Título Principal posicionado sobre a imagem */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start pb-16 lg:pb-32">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#BAD9CF] mb-3">
-            Nicho Logístico Especializado
-          </span>
-          <h2 className="font-garamond text-4xl sm:text-5xl lg:text-[64px] font-medium leading-tight text-white max-w-2xl">
-            Logística de <br />
-            <span className="italic text-[#BAD9CF]">Eventos & Arte</span>
-          </h2>
-        </div>
-
         {/* Cartão de Logística de Nicho (Caixa Branca Flutuante) - Versão Desktop */}
         <div
           ref={cardRef}
@@ -134,11 +123,14 @@ export default function LogisticaEventosArte() {
             </span>
           </div>
 
-          <h3 className="text-[#002047] font-poppins text-2xl font-semibold leading-snug mb-4">
-            Operações complexas sob medida para ativos de alto valor.
-          </h3>
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start pb-4 lg:pb-4">
+            <h2 className="font-poppins text-4xl sm:text-4xl lg:text-[50px] font-bold leading-tight text-[#002047] max-w-2xl">
+              A Logística por trás <br />
+              <span className="font-light text-[#3F3731]">do Design Brasileiro.</span>
+            </h2>
+          </div>
           <p className="text-[#3F3731]/80 font-poppins font-light text-base leading-relaxed">
-            Coordenamos toda a cadeia logística internacional para galerias de arte, designers autorais e grandes feiras de negócios. Da burocracia de admissão temporária sob regime aduaneiro especial ao transporte seguro e climatizado, garantimos integridade absoluta em cada detalhe.
+            Somos especialistas em cargas sensíveis. De mobiliário modernista a obras de arte únicas, cuidamos da coleta,  embalagem sob medida e entrega  porta-a-porta (White Glove).
           </p>
         </div>
       </div>
@@ -163,7 +155,7 @@ export default function LogisticaEventosArte() {
       {/* Bloco de Conteúdo Inferior (Vídeo e Informações de Proteção Técnica) */}
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-[240px] pb-20 lg:pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
+
           {/* Lado Esquerdo: Vídeo da Caixa */}
           <div
             ref={videoContainerRef}
@@ -209,7 +201,7 @@ export default function LogisticaEventosArte() {
               <p className="font-poppins font-light text-sm sm:text-[15px] text-[#3F3731]/90 leading-relaxed">
                 Um serviço de entrega técnica que vai além do transporte, garantindo o manuseio cuidadoso e a integridade total da peça no destino final.
               </p>
-              
+
               {/* Rodapé do box com ícone e texto */}
               <div className="flex items-center gap-3 mt-2 text-[#3F3731]/60 text-xs sm:text-[12px] font-light">
                 <div className="relative w-5 h-5 flex items-center justify-center">
