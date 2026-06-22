@@ -12,6 +12,10 @@ export default function NewHero() {
   const [logoFadeOut, setLogoFadeOut] = useState(false);
   const [logoHidden, setLogoHidden] = useState(false);
 
+  // Estados para controle do texto rotativo (slide left + fade)
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [animationState, setAnimationState] = useState<"idle" | "exiting" | "entering">("idle");
+
   const phrases = [
     "Seu desembaraço sem gargalos técnicos.",
     "Sua exportação em conformidade total.",
@@ -52,6 +56,30 @@ export default function NewHero() {
       clearTimeout(hideTimer);
     };
   }, []);
+
+  // Efeito para rotacionar as frases com efeito de slide left + fade
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Inicia animação de saída (desliza para esquerda e esmaece)
+      setAnimationState("exiting");
+
+      const timerOut = setTimeout(() => {
+        // Altera para a próxima frase e inicia animação de entrada (desliza da direita para o centro)
+        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+        setAnimationState("entering");
+
+        const timerIn = setTimeout(() => {
+          setAnimationState("idle");
+        }, 500); // Tempo correspondente à animação de entrada
+
+        return () => clearTimeout(timerIn);
+      }, 500); // Tempo correspondente à animação de saída
+
+      return () => clearTimeout(timerOut);
+    }, 4000); // Rotaciona as frases a cada 4 segundos
+
+    return () => clearInterval(interval);
+  }, [phrases.length]);
 
   return (
     <>
@@ -159,25 +187,32 @@ export default function NewHero() {
         </div>
 
         {/* Conteúdo Principal do Hero */}
-        <div className="main-container relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center px-4 pt-24 pb-0 sm:px-6 md:flex-row md:items-end md:gap-12 lg:px-8 overflow-hidden">
+        <div className="main-container relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-end md:justify-center px-4 pb-0 sm:px-6 md:flex-row md:items-end md:gap-12 lg:px-8 overflow-hidden">
 
           {/* Coluna Esquerda: Textos e Botão de Ação */}
-          <div className="flex w-full flex-col items-center text-center md:w-1/2 md:items-start md:text-left mb-0 z-10 md:scale-80 lg:scale-100 pb-20 mt-80 lg:mt-0">
+          <div className="flex w-full flex-col items-center text-center md:w-1/2 md:items-start md:text-left mb-0 z-10 md:scale-100 lg:scale-100 pb-20 mt-80 lg:mt-0">
             {/* Subtítulo inicial */}
             <span className="hero-sub text-[12px] leading-4.5 md:text-[14px] md:leading-5.25 font-medium uppercase tracking-[0.15em] text-[#BAD9CF]">
               Comércio Exterior desde 1997
             </span>
 
             {/* Título Principal */}
-            <h1 className="hero-title mt-4 text-[32px] leading-10 md:text-[44px] md:leading-13.75 lg:text-[52px] lg:leading-16.25 font-semibold tracking-tight">
+            <h1 className="hero-title mt-4 text-[32px] leading-10 md:text-[44px] md:leading-13.75 lg:text-[52px] lg:leading-16.25 font-semibold tracking-tight whitespace-normal lg:whitespace-nowrap">
               Comércio Exterior com <br className="hidden sm:inline" />
               <span className="text-[#BAD9CF]">Segurança</span>, <span className="text-[#BAD9CF]">Clareza</span> <br className="hidden sm:inline" />
               e <span className="text-[#BAD9CF]">Previsibilidade</span>
             </h1>
 
-            {/* Descrição curta */}
-            <p className="hero-desc mt-6 text-[18px] leading-6.75 md:text-[24px] md:leading-9 lg:text-[30px] lg:leading-11.25 font-light text-zinc-300">
-              Sua operação sem complexidade.
+            {/* Descrição curta rotativa */}
+            <p
+              className={`hero-desc mt-6 text-[18px] leading-6.75 md:text-[24px] md:leading-9 lg:text-[30px] lg:leading-11.25 font-light text-zinc-300 transition-all duration-500 ${animationState === "exiting"
+                ? "animate-slide-out"
+                : animationState === "entering"
+                  ? "animate-slide-in"
+                  : ""
+                }`}
+            >
+              {phrases[currentPhraseIndex]}
             </p>
 
             {/* Botão para falar no WhatsApp */}
@@ -192,7 +227,7 @@ export default function NewHero() {
           </div>
 
           {/* Coluna Direita: Imagem do Consultor */}
-          <div className="hero-image scale-[200%] lg:scale-120 ml-20 sm:ml-0">
+          <div className="hero-image scale-[180%] lg:scale-120">
             <Image
               src="/mauricio.png"
               alt="Maurício - GRU Consulting"
@@ -233,7 +268,7 @@ export default function NewHero() {
 
           {/* Badge flutuante (LABEL do Figma) */}
           <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-[7px] border border-black/10 bg-[#A8A8A8] px-4 py-1">
-            <span className="text-[10px] font-semibold tracking-wider text-[#2C2C2C] uppercase sm:text-xs">
+            <span className="text-[10px] font-semibold tracking-wider text-[#2C2C2C] uppercase sm:text-xs whitespace-nowrap">
               Marcas que confiam na expertise da GRU
             </span>
           </div>

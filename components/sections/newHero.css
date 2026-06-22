@@ -332,7 +332,7 @@
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-30%);
   width: 100%;
   max-width: 420px; /* Mantém a proporção no mobile */
   z-index: 0; /* Fica no fundo */
@@ -346,8 +346,8 @@
     position: relative;
     bottom: auto;
     left: auto;
-    transform: none;
-    width: 50%; /* Ocupa metade do container no desktop */
+    transform: translate(5%, -5%);
+    width: 45%; /* Ocupa metade do container no desktop */
     max-width: 528px; /* Largura máxima do Figma */
     z-index: auto;
     opacity: 1;
@@ -399,4 +399,35 @@
 .is-ready .main-container {
   animation: mainContainerFadeIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   animation-delay: 1200ms;
+}
+
+/* Animações de Slide Left e Fade para o texto rotativo das frases do Hero */
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-25px);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-out {
+  animation: slideOutLeft 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-slide-in {
+  animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
