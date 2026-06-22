@@ -13,6 +13,7 @@
   --font-sans: var(--font-poppins);
   --font-poppins: var(--font-poppins);
   --font-instrument: var(--font-instrument-sans);
+  --font-garamond: var(--font-eb-garamond);
 }
 
 @media (prefers-color-scheme: dark) {

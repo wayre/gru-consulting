@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Poppins, Instrument_Sans } from "next/font/google";
+import { Poppins, Instrument_Sans, EB_Garamond } from "next/font/google";
 import { ThemeInit } from "../.flowbite-react/init";
 import "./globals.css";
 
-// Configuração das fontes específicas do Figma (Poppins e Instrument Sans)
+// Configuração das fontes específicas do Figma (Poppins, Instrument Sans e EB Garamond)
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["300", "400", "500", "600", "700"],
@@ -12,6 +12,12 @@ const poppins = Poppins({
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
@@ -29,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${poppins.variable} ${instrumentSans.variable} h-full antialiased`}
+      className={`${poppins.variable} ${instrumentSans.variable} ${ebGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-poppins">
         <ThemeInit />

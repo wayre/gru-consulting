@@ -12,6 +12,13 @@ export default function NewHero() {
   const [logoFadeOut, setLogoFadeOut] = useState(false);
   const [logoHidden, setLogoHidden] = useState(false);
 
+  const phrases = [
+    "Seu desembaraço sem gargalos técnicos.",
+    "Sua exportação em conformidade total.",
+    "Seu câmbio com inteligência sênior.",
+    "Sua expansão com estratégia sob medida."
+  ];
+
   // Array com as marcas/clientes parceiros para facilidade de manutenção
   const clientLogos = [
     { name: "Fortuna", src: "/cliente-fortuna.png" },
@@ -152,10 +159,10 @@ export default function NewHero() {
         </div>
 
         {/* Conteúdo Principal do Hero */}
-        <div className="main-container relative z-30 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center px-4 pt-24 pb-4 sm:px-6 md:flex-row md:items-end md:gap-12 lg:px-8 overflow-hidden">
+        <div className="main-container relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center px-4 pt-24 pb-0 sm:px-6 md:flex-row md:items-end md:gap-12 lg:px-8 overflow-hidden">
 
           {/* Coluna Esquerda: Textos e Botão de Ação */}
-          <div className="flex w-full flex-col items-center text-center md:w-1/2 md:items-start md:text-left mb-0 z-10 md:scale-80 lg:scale-100 pt-70">
+          <div className="flex w-full flex-col items-center text-center md:w-1/2 md:items-start md:text-left mb-0 z-10 md:scale-80 lg:scale-100 pb-20 mt-80 lg:mt-0">
             {/* Subtítulo inicial */}
             <span className="hero-sub text-[12px] leading-4.5 md:text-[14px] md:leading-5.25 font-medium uppercase tracking-[0.15em] text-[#BAD9CF]">
               Comércio Exterior desde 1997
@@ -185,14 +192,14 @@ export default function NewHero() {
           </div>
 
           {/* Coluna Direita: Imagem do Consultor */}
-          <div className="hero-image">
+          <div className="hero-image scale-[200%] lg:scale-120 ml-20 sm:ml-0">
             <Image
               src="/mauricio.png"
               alt="Maurício - GRU Consulting"
               width={528}
               height={735}
               priority
-              className="h-auto w-full object-contain"
+              className="h-auto w-full object-contain scale-110"
             />
           </div>
 
@@ -204,7 +211,7 @@ export default function NewHero() {
             background: "linear-gradient(270deg, rgba(186, 217, 207, 0) 0%, rgba(186, 217, 207, 0.7) 10%, #BAD9CF 50%, rgba(186, 217, 207, 0.64) 90%, rgba(186, 217, 207, 0) 100%)"
           }}
         />
-        <div className="pb-20 bg-black/20 z-10">s</div>
+        <div className="h-20 bg-black/20 z-10" />
 
         {/* Rodapé do Hero: Divisor e Seção de Clientes */}
         <div className="relative z-40 w-full">
@@ -217,39 +224,42 @@ export default function NewHero() {
             }}
           /> */}
 
-          {/* Seção das Marcas Parceiras */}
-          <div className="hero-partners relative bg-[#171A22] pt-8 pb-6 md:pt-10 md:pb-8">
+        </div>
+      </section>
 
-            {/* Badge flutuante (LABEL do Figma) */}
-            <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-[7px] border border-black/10 bg-[#A8A8A8] px-4 py-1">
-              <span className="text-[10px] font-semibold tracking-wider text-[#2C2C2C] uppercase sm:text-xs">
-                Marcas que confiam na expertise da GRU
-              </span>
+      <section>
+        {/* Seção das Marcas Parceiras */}
+        <div className="hero-partners relative bg-[#171A22] pt-8 pb-6 md:pt-10 md:pb-8 z-20">
+
+          {/* Badge flutuante (LABEL do Figma) */}
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-[7px] border border-black/10 bg-[#A8A8A8] px-4 py-1">
+            <span className="text-[10px] font-semibold tracking-wider text-[#2C2C2C] uppercase sm:text-xs">
+              Marcas que confiam na expertise da GRU
+            </span>
+          </div>
+
+          {/* Grid de Logos dos Clientes */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-2">
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
+              {clientLogos.map((logo) => (
+                <div
+                  key={logo.name}
+                  className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={`Logo da marca ${logo.name}`}
+                    width={150}
+                    height={50}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              ))}
             </div>
-
-            {/* Grid de Logos dos Clientes */}
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-2">
-              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
-                {clientLogos.map((logo) => (
-                  <div
-                    key={logo.name}
-                    className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32"
-                  >
-                    <Image
-                      src={logo.src}
-                      alt={`Logo da marca ${logo.name}`}
-                      width={150}
-                      height={50}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </div>
 
         </div>
+
       </section>
     </>
   );

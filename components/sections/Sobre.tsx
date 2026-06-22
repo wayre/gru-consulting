@@ -1,0 +1,129 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Sobre() {
+  // Configuração dos segmentos atendidos com base no design do Figma
+  const segmentos = [
+    {
+      title: "Arte e Cultura",
+      description: "Galerias, museus, curadores e estúdios criativos que exportam e importam obras com a segurança que peças valiosas exigem.",
+      icon: "/ico-segment-art.svg",
+    },
+    {
+      title: "Design e Decoração",
+      description: "Designers, fabricantes de móveis e marcas autorais que operam internacionalmente sem montar estrutura interna.",
+      icon: "/ico-segment-design.svg",
+    },
+    {
+      title: "Indústria e Comércio",
+      description: "Pequenas e médias indústrias iniciantes ou em expansão no comércio exterior, com acesso a especialistas seniores.",
+      icon: "/ico-segment-industry.svg",
+    },
+  ];
+
+  return (
+    <section className="about-section w-full bg-[#F2F2F2] py-16 md:py-24 lg:pt-[140px] lg:pb-[120px] text-zinc-900 font-poppins">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Bloco de introdução principal da consultoria */}
+        <div className="mx-auto max-w-[925px] text-center mb-10">
+          <p className="font-instrument text-2xl md:text-3xl lg:text-[36px] lg:leading-[55px] text-[#606060] font-normal">
+            Somos uma consultoria especializada em Comércio Exterior. Unimos experiência técnica e suporte completo em logística, despacho aduaneiro e câmbio para simplificar operações internacionais.
+          </p>
+        </div>
+
+        {/* Separador horizontal cinza conforme o Figma */}
+        <div className="mx-auto my-10 h-[7px] w-[305px] bg-[#D9D9D9] rounded-full" />
+
+        {/* Bloco sobre inteligência e viabilização */}
+        <div className="mx-auto max-w-[1113px] grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center my-16 lg:my-20">
+          
+          {/* Lado Esquerdo: Logo Box e Botão de Falar no WhatsApp */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-[399px] aspect-[399/269]">
+              <Image
+                src="/logo-box.png"
+                alt="Logo Box GRU Consulting"
+                fill
+                priority
+                className="object-contain"
+              />
+            </div>
+            
+            {/* Link para Falar no WhatsApp */}
+            <Link
+              href="https://wa.me/5500000000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 flex h-[35px] w-[165px] items-center justify-center rounded-[9px] bg-[#236253] text-[10px] font-semibold uppercase tracking-wider text-white shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#1a4b3f] hover:scale-105"
+            >
+              Falar no WhatsApp
+            </Link>
+          </div>
+
+          {/* Lado Direito: Informações e Diferenciais de Consultoria */}
+          <div className="lg:col-span-7 flex flex-col gap-4 text-center lg:text-left">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#6B6057]">
+              Inteligência · Consultoria & Viabilidade
+            </span>
+            
+            <h2 className="flex flex-col gap-1">
+              <span className="font-poppins text-3xl md:text-[46px] font-semibold text-[#002047] leading-tight">
+                Não apenas enviamos.
+              </span>
+              <span className="font-poppins text-4xl md:text-[58px] font-light text-[#3F3731]/70 leading-tight">
+                Viabilizamos o seu negócio.
+              </span>
+            </h2>
+            
+            <p className="mt-4 font-poppins text-lg md:text-[23px] font-light text-[#3F3731]/70 leading-[1.3]">
+              Antes do primeiro container, vem a estratégia. Analisamos a viabilidade financeira e o compliance tributário para garantir que sua internacionalização seja sustentável e protegida.
+            </p>
+          </div>
+
+        </div>
+
+        {/* Sub-seção com os Segmentos Atendidos */}
+        <div className="mt-20 lg:mt-28 flex flex-col items-center">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#6B6057] mb-8">
+            Segmentos Atendidos
+          </span>
+
+          {/* Grid de Cards dos Segmentos Atendidos com divisores internos */}
+          <div className="w-full max-w-[842px] flex flex-col md:flex-row md:items-stretch rounded-[4px] overflow-hidden divide-y md:divide-y-0 md:divide-x divide-[#D9D9D9]">
+            {segmentos.map((seg, idx) => (
+              <div
+                key={idx}
+                className="flex-1 bg-[#FCFAF6] px-6 py-10 md:py-8 lg:px-7 lg:py-9 flex flex-col items-center text-center gap-5 transition-colors duration-300 hover:bg-[#FAF6EE] group"
+              >
+                {/* Ícone correspondente do segmento */}
+                <div className="relative w-[60px] h-[60px] transition-transform duration-300 group-hover:scale-110">
+                  <Image
+                    src={seg.icon}
+                    alt={`Ícone do segmento ${seg.title}`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+
+                {/* Título do segmento usando a fonte serifada EB Garamond */}
+                <h3 className="font-garamond text-2xl font-medium text-[#131B26] mt-2">
+                  {seg.title}
+                </h3>
+
+                {/* Descrição resumida do segmento */}
+                <p className="font-instrument text-sm text-[#131B26]/70 leading-relaxed max-w-[215px]">
+                  {seg.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}

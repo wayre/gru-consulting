@@ -379,3 +379,24 @@
   transform: translateX(-50%) scaleX(1);
   animation: floorColorCycle 18s ease-in-out infinite;
 }
+
+/* Animação para a entrada do conteúdo principal do Hero (fade-in com delay de 1200ms) */
+@keyframes mainContainerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-container {
+  opacity: 0;
+}
+
+.is-ready .main-container {
+  animation: mainContainerFadeIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 1200ms;
+}

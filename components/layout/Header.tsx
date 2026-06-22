@@ -22,7 +22,7 @@ export function Header() {
   return (
     <header className="absolute top-0 left-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl transition-colors duration-300 animate-header-enter">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        
+
         {/* Logo da GRU Consulting */}
         <div className="flex flex-1 justify-start">
           <Link href="/" className="flex items-center">
@@ -52,10 +52,6 @@ export function Header() {
 
         {/* Ações da Direita - Desktop */}
         <div className="hidden lg:flex flex-1 items-center justify-end space-x-4">
-          {/* Botão de Alternar Modo Escuro */}
-          <div className="rounded-lg text-white hover:bg-white/10 transition-colors">
-            <DarkThemeToggle className="text-white hover:text-white bg-transparent border-none focus:ring-0" />
-          </div>
 
           {/* Botão Falar com Consultor */}
           <Link
@@ -68,10 +64,6 @@ export function Header() {
 
         {/* Botão de Menu Mobile e Alternador de Tema Escuro */}
         <div className="flex lg:hidden items-center space-x-2">
-          {/* Alternador de Tema sempre visível no Mobile */}
-          <div className="rounded-lg text-white hover:bg-white/10 transition-colors">
-            <DarkThemeToggle className="text-white hover:text-white bg-transparent border-none focus:ring-0" />
-          </div>
 
           {/* Botão de Menu Hambúrguer */}
           <button
@@ -125,7 +117,7 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            
+
             {/* Botão Falar com Consultor no Mobile */}
             <div className="pt-4 px-3">
               <Link
