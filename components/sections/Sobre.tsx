@@ -1,10 +1,42 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Sobre() {
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  // Efeito para criar a animação de scroll no texto principal com GSAP e ScrollTrigger
+  useEffect(() => {
+    // Registrar o plugin ScrollTrigger no lado do cliente
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context((self) => {
+      // Seleciona todas as letras animadas dentro do escopo do elemento pai
+      const chars = self.selector?.(".about-char");
+      if (!chars || chars.length === 0) return;
+
+      // Animação idêntica ao elemento .textoLongo do site webhub (GSAP a partir de y: 100% e opacity: 0)
+      gsap.from(chars, {
+        y: "100%", // Inicia deslocado 100% de sua própria altura para baixo
+        opacity: 0,
+        duration: 0.3,
+        stagger: 0.02,
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 90%",
+          end: "bottom 50%",
+          scrub: 3, // Lag/Inércia de scroll suave de 3 segundos
+        },
+      });
+    }, textRef); // Escopo do GSAP restrito a esta referência para isolar seletores
+
+    return () => ctx.revert(); // Limpa as animações e triggers ao desmontar
+  }, []);
+
   // Configuração dos segmentos atendidos com base no design do Figma
   const segmentos = [
     {
@@ -27,11 +59,24 @@ export default function Sobre() {
   return (
     <section className="about-section w-full bg-[#F2F2F2] py-16 md:py-24 lg:pt-[140px] lg:pb-[120px] text-zinc-900 font-poppins">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Bloco de introdução principal da consultoria */}
-        <div className="mx-auto max-w-[925px] text-center mb-10">
-          <p className="font-instrument text-2xl md:text-3xl lg:text-[36px] lg:leading-[55px] text-[#606060] font-normal">
-            Somos uma consultoria especializada em Comércio Exterior. Unimos experiência técnica e suporte completo em logística, despacho aduaneiro e câmbio para simplificar operações internacionais.
+        <div className="about-main-text mx-auto max-w-[925px] text-center mb-10">
+          <p
+            ref={textRef}
+            className="font-instrument text-2xl md:text-3xl lg:text-[36px] lg:leading-[55px] text-[#606060] font-normal"
+          >
+            {"Somos uma consultoria especializada em Comércio Exterior. Unimos experiência técnica e suporte completo em logística, despacho aduaneiro e câmbio para simplificar operações internacionais.".split(" ").map((word, wIdx, arr) => (
+              <span key={wIdx} className="inline-block overflow-hidden align-bottom whitespace-nowrap">
+                {word.split("").map((char, cIdx) => (
+                  <span key={cIdx} className="about-char inline-block">
+                    {char}
+                  </span>
+                ))}
+                {/* Adiciona espaço após cada palavra (exceto no final) */}
+                {wIdx < arr.length - 1 && <span className="inline-block">&nbsp;</span>}
+              </span>
+            ))}
           </p>
         </div>
 
@@ -40,19 +85,19 @@ export default function Sobre() {
 
         {/* Bloco sobre inteligência e viabilização */}
         <div className="mx-auto max-w-[1113px] grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-center my-16 lg:my-20">
-          
+
           {/* Lado Esquerdo: Logo Box e Botão de Falar no WhatsApp */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center">
             <div className="relative w-full max-w-[399px] aspect-[399/269]">
               <Image
-                src="/logo-box.png"
+                src="/logo-about.png"
                 alt="Logo Box GRU Consulting"
                 fill
                 priority
                 className="object-contain"
               />
             </div>
-            
+
             {/* Link para Falar no WhatsApp */}
             <Link
               href="https://wa.me/5500000000000"
@@ -69,7 +114,7 @@ export default function Sobre() {
             <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#6B6057]">
               Inteligência · Consultoria & Viabilidade
             </span>
-            
+
             <h2 className="flex flex-col gap-1">
               <span className="font-poppins text-3xl md:text-[46px] font-semibold text-[#002047] leading-tight">
                 Não apenas enviamos.
@@ -78,7 +123,7 @@ export default function Sobre() {
                 Viabilizamos o seu negócio.
               </span>
             </h2>
-            
+
             <p className="mt-4 font-poppins text-lg md:text-[23px] font-light text-[#3F3731]/70 leading-[1.3]">
               Antes do primeiro container, vem a estratégia. Analisamos a viabilidade financeira e o compliance tributário para garantir que sua internacionalização seja sustentável e protegida.
             </p>
