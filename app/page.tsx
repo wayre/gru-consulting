@@ -5,6 +5,8 @@ import { Header } from "../components/layout/Header";
 import NewHero from "@/components/sections/newHero";
 import Sobre from "@/components/sections/Sobre";
 import LogisticaEventosArte from "@/components/sections/LogisticaEventosArte";
+import ForeignTrade from "@/components/sections/ForeignTrade";
+import Previsibilidade from "@/components/sections/Previsibilidade";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
         <NewHero />
         <Sobre />
         <LogisticaEventosArte />
+        <ForeignTrade />
+        <Previsibilidade />
       </main>
     </div>
   );

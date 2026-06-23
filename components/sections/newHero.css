@@ -431,3 +431,44 @@
 .animate-slide-in {
   animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
+
+/* Animações de Carrossel Infinito (Marquee) para os Logos dos Clientes */
+.animate-marquee-left {
+  animation: marqueeLeft 47s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marqueeRight 47s linear infinite;
+}
+
+/* Pausa o movimento ao passar o mouse para melhor interatividade */
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Desloca exatamente metade do flex container (um set completo de logos) */
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    /* Começa deslocado à esquerda e move-se de volta para a direita */
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Máscara de gradiente lateral para suavizar o desaparecimento dos logos nas bordas */
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}

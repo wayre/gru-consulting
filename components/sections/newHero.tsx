@@ -36,6 +36,9 @@ export default function NewHero() {
     { name: "Renz Intrumentos Elétricos", src: "logo-renz-intrumentos-eletricos.png" }
   ];
 
+  // Cria uma lista de logos rotacionada a partir do índice 4 para a segunda animação
+  const rotatedLogos = [...clientLogos.slice(4), ...clientLogos.slice(0, 4)];
+
   useEffect(() => {
     if (videoRef.current) {
       // Configura a velocidade de reprodução para 0.5x
@@ -233,7 +236,7 @@ export default function NewHero() {
           {/* Coluna Direita: Imagem do Consultor */}
           <div className="hero-image scale-[130%] md:scale-120 lg:scale-120 lg:-mb-16">
             <Image
-              src="/mauricio.png"
+              src="/mauricio.webp"
               alt="Maurício - GRU Consulting"
               width={528}
               height={735}
@@ -277,24 +280,81 @@ export default function NewHero() {
             </span>
           </div>
 
-          {/* Grid de Logos dos Clientes */}
-          <div className="grid-logo-empresas mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-2">
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
-              {clientLogos.map((logo) => (
-                <div
-                  key={logo.name}
-                  className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32"
-                >
-                  <Image
-                    src={"/logo-empresas/" + logo.src}
-                    alt={`Logo da marca ${logo.name}`}
-                    width={150}
-                    height={50}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-              ))}
+          {/* Grid de Logos dos Clientes com duas linhas animadas em direções opostas */}
+          <div className="grid-logo-empresas mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-2 overflow-hidden flex flex-col gap-6 mask-gradient">
+
+            {/* Primeira linha animada: move-se suavemente para a esquerda */}
+            <div className="w-full overflow-hidden">
+              <div className="flex w-max animate-marquee-left py-2">
+                {/* Primeiro set de logos */}
+                {clientLogos.map((logo, index) => (
+                  <div
+                    key={`${logo.name}-left-1-${index}`}
+                    className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32 flex-shrink-0 mx-4 sm:mx-6 md:mx-8"
+                  >
+                    <Image
+                      src={"/logo-empresas/" + logo.src}
+                      alt={`Logo da marca ${logo.name}`}
+                      width={150}
+                      height={50}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                ))}
+                {/* Segundo set de logos duplicado para criar a ilusão de loop infinito */}
+                {clientLogos.map((logo, index) => (
+                  <div
+                    key={`${logo.name}-left-2-${index}`}
+                    className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32 flex-shrink-0 mx-4 sm:mx-6 md:mx-8"
+                  >
+                    <Image
+                      src={"/logo-empresas/" + logo.src}
+                      alt={`Logo da marca ${logo.name}`}
+                      width={150}
+                      height={50}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* Segunda linha animada: move-se suavemente para a direita */}
+            <div className="w-full overflow-hidden">
+              <div className="flex w-max animate-marquee-right py-2">
+                {/* Primeiro set de logos */}
+                {rotatedLogos.map((logo, index) => (
+                  <div
+                    key={`${logo.name}-right-1-${index}`}
+                    className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32 flex-shrink-0 mx-4 sm:mx-6 md:mx-8"
+                  >
+                    <Image
+                      src={"/logo-empresas/" + logo.src}
+                      alt={`Logo da marca ${logo.name}`}
+                      width={150}
+                      height={50}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                ))}
+                {/* Segundo set de logos duplicado para criar a ilusão de loop infinito */}
+                {rotatedLogos.map((logo, index) => (
+                  <div
+                    key={`${logo.name}-right-2-${index}`}
+                    className="flex h-10 w-24 items-center justify-center grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 sm:w-28 md:w-32 flex-shrink-0 mx-4 sm:mx-6 md:mx-8"
+                  >
+                    <Image
+                      src={"/logo-empresas/" + logo.src}
+                      alt={`Logo da marca ${logo.name}`}
+                      width={150}
+                      height={50}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
         </div>

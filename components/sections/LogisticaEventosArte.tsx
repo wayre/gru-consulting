@@ -98,62 +98,66 @@ export default function LogisticaEventosArte() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#F6F1ED] overflow-hidden font-poppins text-zinc-900"
+      className="relative w-full bg-[#ffffff] overflow-hidden font-poppins text-zinc-900"
     >
       {/* Banner Superior com a imagem de background */}
       <div
         ref={titleBgRef}
-        className="relative w-full h-[360px] sm:h-[460px] lg:h-[591px] bg-cover bg-center flex items-center"
+        className="relative w-full h-70 sm:h-75 lg:h-120 bg-cover bg-center flex items-center"
         style={{
           backgroundImage: "url('/background-licho-artes.png')",
         }}
       >
         {/* Overlay escuro elegante para garantir contraste com o texto */}
-        <div className="absolute inset-0 bg-black/40" />
+        {/* <div className="absolute inset-0 bg-black/40" /> */}
 
         {/* Cartão de Logística de Nicho (Caixa Branca Flutuante) - Versão Desktop */}
         <div
           ref={cardRef}
-          className="hidden lg:flex absolute bottom-0 left-6 sm:left-12 lg:left-[80px] translate-y-1/2 w-[722px] h-[334px] p-12 bg-[#FFFDFB] rounded-[25px] shadow-[3px_5px_10px_0px_rgba(0,0,0,0.05)] z-20 flex-col justify-center"
+          className="hidden lg:flex absolute -bottom-14 left-6 sm:left-12 lg:left-20 p-8 bg-[#FFFDFB] rounded-[25px] shadow-[3px_5px_10px_0px_rgba(0,0,0,0.05)] z-20 flex-col justify-center"
         >
           {/* Label deslocado para cima na borda */}
-          <div className="absolute -top-3.5 left-[53px] bg-[#423E3E] border border-black/5 rounded-[6px] px-6 py-1 flex items-center justify-center">
+          <div className="absolute -top-3.5 left-13.25 bg-[#423E3E] border border-black/5 rounded-md px-6 py-1 flex items-center justify-center">
             <span className="text-[11px] font-medium text-[#D9D9D9] tracking-wider uppercase">
               Logística de Nicho
             </span>
           </div>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start pb-4 lg:pb-4">
-            <h2 className="font-poppins text-4xl sm:text-4xl lg:text-[50px] font-bold leading-tight text-[#002047] max-w-2xl">
+          <div className="relative z-10 w-full max-w-7xl mx-auto lg:px-8 flex flex-col justify-start">
+            <h2 className="font-poppins text-[40px] font-bold leading-tight text-[#002047] max-w-2xl">
               A Logística por trás <br />
-              <span className="font-light text-[#3F3731]">do Design Brasileiro.</span>
+              <span className="font-light text-[40px] text-[#3F3731]">do Design Brasileiro.</span>
             </h2>
           </div>
-          <p className="text-[#3F3731]/80 font-poppins font-light text-base leading-relaxed">
-            Somos especialistas em cargas sensíveis. De mobiliário modernista a obras de arte únicas, cuidamos da coleta,  embalagem sob medida e entrega  porta-a-porta (White Glove).
-          </p>
+
         </div>
       </div>
 
       {/* Cartão de Logística de Nicho - Versão Mobile */}
-      <div className="block lg:hidden px-6 -mt-10 relative z-20">
+      <div className="flex lg:hidden px-6 -mt-10 relative z-20 scale-90">
         <div className="bg-[#FFFDFB] rounded-[20px] p-8 shadow-[3px_5px_10px_0px_rgba(0,0,0,0.05)] relative">
-          <div className="absolute -top-3 left-[30px] bg-[#423E3E] border border-black/5 rounded-[6px] px-4 py-1">
+          <div className="absolute -top-3 left-7.5 bg-[#423E3E] border border-black/5 rounded-md px-4 py-1">
             <span className="text-[10px] font-medium text-[#D9D9D9] tracking-wider uppercase">
               Logística de Nicho
             </span>
           </div>
-          <h3 className="text-[#002047] font-poppins text-lg sm:text-xl font-semibold leading-snug mb-3 mt-2">
-            Operações complexas sob medida para ativos de alto valor.
-          </h3>
-          <p className="text-[#3F3731]/80 font-poppins font-light text-sm sm:text-base leading-relaxed">
-            Coordenamos toda a cadeia logística internacional para galerias de arte, designers autorais e grandes feiras de negócios. Da burocracia de admissão temporária sob regime aduaneiro especial ao transporte seguro e climatizado, garantimos integridade absoluta em cada detalhe.
-          </p>
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start">
+            <h2 className="font-poppins text-[22px] sm:text-4xl lg:text-[50px] font-bold leading-tight text-[#002047] max-w-2xl">
+              A Logística por trás <br />
+              <span className="font-light text-[36px] text-[#3F3731] leading-tight">do Design Brasileiro.</span>
+            </h2>
+          </div>
         </div>
       </div>
 
+      <div className="w-full mx-auto px-10 sm:px-15 pt-8 md:pt-20 text-center max-w-7xl">
+        <p className="text-[#3F3731]/80 font-poppins font-light text-[24px] sm:text-[28px] leading-relaxed mt-10">
+          Somos especialistas em cargas sensíveis. De mobiliário modernista a obras de arte únicas, cuidamos da coleta,  embalagem sob medida e entrega  porta-a-porta (White Glove).
+        </p>
+      </div>
+
       {/* Bloco de Conteúdo Inferior (Vídeo e Informações de Proteção Técnica) */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-[240px] pb-20 lg:pb-32">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-30 pb-20 lg:pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
           {/* Lado Esquerdo: Vídeo da Caixa */}
