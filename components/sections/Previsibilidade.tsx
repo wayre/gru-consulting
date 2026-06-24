@@ -219,34 +219,7 @@ export default function Previsibilidade() {
         </div>
       </div>
 
-      {/* Grid de Imagens da Galeria */}
-      <div
-        ref={galleryRef}
-        className="w-full grid grid-cols-2 lg:grid-cols-5 gap-[3px] bg-[#0B0D12]"
-      >
-        {galleryImages.map((img, idx) => (
-          <div
-            key={idx}
-            className="relative group overflow-hidden aspect-[4/3] w-full bg-zinc-900"
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-            />
-            {/* Overlay sutil em hover com informações adicionais */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-              <span className="text-[9px] uppercase tracking-wider text-[#E5B584] font-semibold mb-1">
-                {img.tag}
-              </span>
-              <h4 className="text-white text-sm font-medium leading-snug">
-                {img.title}
-              </h4>
-            </div>
-          </div>
-        ))}
-      </div>
+
     </section>
   );
 }

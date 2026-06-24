@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Instrument_Sans } from "next/font/google";
+import { Poppins, Instrument_Sans, EB_Garamond } from "next/font/google";
 import { ThemeInit } from "../.flowbite-react/init";
 import "./globals.css";
 
@@ -16,6 +16,13 @@ const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
 });
 
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "GRU Consulting | Consultoria em Comércio Exterior",
   description: "Segurança, clareza e previsibilidade em suas operações internacionais de importação, exportação, logística e câmbio.",
@@ -29,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${poppins.variable} ${instrumentSans.variable} h-full antialiased`}
+      className={`${poppins.variable} ${instrumentSans.variable} ${ebGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-poppins">
         <ThemeInit />
