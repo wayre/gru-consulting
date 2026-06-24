@@ -23,13 +23,9 @@
 
   background-size: 300% 300%;
   animation: gradientMove 18s ease infinite;
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  will-change: background-position;
 }
 
-/* Vídeo do mapa mundi como fundo do Hero com aceleração de hardware */
+/* Vídeo do mapa mundi como fundo do Hero */
 .hero-video-bg {
   position: absolute;
   inset: 0;
@@ -39,9 +35,6 @@
   opacity: 0.2;
   /* Opacidade sutil para compor o fundo escuro de forma elegante */
   pointer-events: none;
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 
 /* Efeito de grade de fundo sutil */
@@ -54,7 +47,7 @@
   background-size: 60px 60px;
 }
 
-/* Efeito de ruído/granulado overlay com aceleração de hardware */
+/* Efeito de ruído/granulado overlay */
 .noise {
   position: absolute;
   inset: 0;
@@ -68,9 +61,6 @@
 
   background-size: 4px 4px;
   mix-blend-mode: overlay;
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 
 /* Gradiente radial de vinheta escura nas bordas */
@@ -93,16 +83,14 @@
   }
 }
 
-/* Brilho de fundo com transição de cores (hero-glow) otimizado sem desfoque dinâmico e com aceleração GPU */
+/* Brilho de fundo com transição de cores (hero-glow) */
 .hero-glow {
   position: absolute;
   left: 50%;
   bottom: -350px;
   width: 2800px;
   height: 1800px;
-  transform: translateX(-50%) translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  transform: translateX(-50%);
   background:
     radial-gradient(ellipse at bottom,
       rgba(255, 215, 0, .35) 0%,
@@ -115,13 +103,12 @@
   --opacity-max: 1.0;
   --scale-min: 0.96;
   --scale-max: 1.08;
-  will-change: transform, opacity;
   animation:
     breath 10s ease-in-out infinite,
     glowColorCycle 18s ease-in-out infinite;
 }
 
-/* Estilo base compartilhado para os cones (holofotes) de luz com rotação de cores e aceleração GPU */
+/* Estilo base compartilhado para os cones (holofotes) de luz com rotação de cores */
 .cone {
   position: absolute;
   left: 50%;
@@ -131,10 +118,7 @@
   /* mesmo tamanho da linha horizontal */
   height: 550px;
   /* altura que atinge e ilumina o logo central */
-  transform: translateX(-50%) translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  will-change: transform, opacity;
+  transform: translateX(-50%);
   animation:
     breath var(--duration) ease-in-out infinite,
     spotlightsColorCycle 18s ease-in-out infinite;
@@ -142,7 +126,7 @@
   pointer-events: none;
 }
 
-/* Feixe de luz interno com corte triangular (trapézio cônico de luz) e desfoque estático (sem repinturas) */
+/* Feixe de luz interno com corte triangular (trapézio cônico de luz) */
 .cone-beam {
   width: 100%;
   height: 100%;
@@ -152,8 +136,6 @@
       transparent 100%);
   /* Formato cônico triangular que estreita no topo onde está o logo */
   clip-path: polygon(42% 0%, 58% 0%, 100% 100%, 0% 100%);
-  filter: blur(var(--blur));
-  will-change: filter;
 }
 
 .cone-1 {
@@ -219,40 +201,42 @@
   }
 }
 
-/* Animação para ciclar as cores dos holofotes (vermelho, verde, azul) sem recalcular blur */
+/* Animação para ciclar as cores dos holofotes (vermelho, verde, azul) */
 @keyframes spotlightsColorCycle {
+
   0%,
   100% {
-    filter: hue-rotate(315deg);
+    filter: blur(var(--blur)) hue-rotate(315deg);
     /* Vermelho */
   }
 
   33% {
-    filter: hue-rotate(75deg);
+    filter: blur(var(--blur)) hue-rotate(75deg);
     /* Verde */
   }
 
   66% {
-    filter: hue-rotate(195deg);
+    filter: blur(var(--blur)) hue-rotate(195deg);
     /* Azul */
   }
 }
 
-/* Animação para ciclar as cores do brilho de fundo (vermelho, verde, azul) sem recalcular blur */
+/* Animação para ciclar as cores do brilho de fundo (vermelho, verde, azul) */
 @keyframes glowColorCycle {
+
   0%,
   100% {
-    filter: hue-rotate(315deg);
+    filter: blur(280px) hue-rotate(315deg);
     /* Vermelho */
   }
 
   33% {
-    filter: hue-rotate(75deg);
+    filter: blur(280px) hue-rotate(75deg);
     /* Verde */
   }
 
   66% {
-    filter: hue-rotate(195deg);
+    filter: blur(280px) hue-rotate(195deg);
     /* Azul */
   }
 }

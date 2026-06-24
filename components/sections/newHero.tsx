@@ -5,9 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import "./newHero.css";
 
+const TOTAL_FRAMES = 192;
+const ANIMATION_FPS = 15; // 15 FPS é equivalente a 0.5x do vídeo original de 30 FPS
+
 // Componente Hero moderno e performático com efeitos visuais e animações
 export default function NewHero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const animationFrameIdRef = useRef<number | null>(null);
+  const currentFrameRef = useRef(0);
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [logoFadeOut, setLogoFadeOut] = useState(false);
   const [logoHidden, setLogoHidden] = useState(false);
@@ -40,26 +47,118 @@ export default function NewHero() {
   const rotatedLogos = [...clientLogos.slice(4), ...clientLogos.slice(0, 4)];
 
   useEffect(() => {
-    if (videoRef.current) {
-      // Configura a velocidade de reprodução para 0.5x
-      videoRef.current.playbackRate = 0.5;
-    }
-    // Define o estado como carregado após a montagem do componente para disparar o fade-out
-    setIsLoaded(true);
+    let isMounted = true;
+    const images: HTMLImageElement[] = [];
+    let loadedCount = 0;
+    let logoTimer: any;
+    let hideTimer: any;
+    let loadTimeout: any;
 
-    // Inicia o fade-out do logo após 1 segundo (1000ms)
-    const logoTimer = setTimeout(() => {
-      setLogoFadeOut(true);
-    }, 1000);
+    // Função para obter a URL do frame formatada
+    const getFrameUrl = (index: number) => {
+      const paddedIndex = String(index).padStart(3, "0");
+      return `/frames/map-${paddedIndex}.jpg`;
+    };
 
-    // Oculta completamente o logo (display: none) após o término da animação (1000ms + 1200ms de transição)
-    const hideTimer = setTimeout(() => {
-      setLogoHidden(true);
-    }, 2200);
+    // Pré-carrega o primeiro frame imediatamente para exibição rápida
+    const firstImg = new window.Image();
+    firstImg.src = getFrameUrl(1);
+    firstImg.onload = () => {
+      if (!isMounted) return;
+
+      // Desenha o primeiro frame no canvas
+      const canvas = canvasRef.current;
+      if (canvas) {
+        canvas.width = firstImg.naturalWidth;
+        canvas.height = firstImg.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      // Dispara o estado pronto para ocultar o loading overlay
+      setIsLoaded(true);
+
+      // Inicia o fade-out do logo após 1 segundo (1000ms)
+      logoTimer = setTimeout(() => {
+        if (isMounted) setLogoFadeOut(true);
+      }, 1000);
+
+      // Oculta completamente o logo após o término da animação (2200ms)
+      hideTimer = setTimeout(() => {
+        if (isMounted) setLogoHidden(true);
+      }, 2200);
+
+      // Inicia o pré-carregamento em lote dos demais frames após um leve delay para priorizar LCP
+      loadTimeout = setTimeout(() => {
+        if (isMounted) preloadAllFrames();
+      }, 500);
+    };
+
+    // Pré-carrega todas as imagens para evitar flickering no loop
+    const preloadAllFrames = () => {
+      for (let i = 1; i <= TOTAL_FRAMES; i++) {
+        const img = new window.Image();
+        img.src = getFrameUrl(i);
+        img.onload = () => {
+          if (!isMounted) return;
+          loadedCount++;
+          if (loadedCount === TOTAL_FRAMES) {
+            startAnimation();
+          }
+        };
+        images.push(img);
+      }
+      imagesRef.current = images;
+    };
+
+    // Inicia a animação utilizando requestAnimationFrame
+    const startAnimation = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const firstLoadedImg = imagesRef.current[0];
+      if (firstLoadedImg) {
+        canvas.width = firstLoadedImg.naturalWidth;
+        canvas.height = firstLoadedImg.naturalHeight;
+      }
+
+      let lastTime = 0;
+      const interval = 1000 / ANIMATION_FPS;
+
+      const render = (time: number) => {
+        if (!isMounted) return;
+
+        if (!lastTime) lastTime = time;
+        const elapsed = time - lastTime;
+
+        if (elapsed >= interval) {
+          const currentImg = imagesRef.current[currentFrameRef.current];
+          if (currentImg && currentImg.complete) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(currentImg, 0, 0, canvas.width, canvas.height);
+          }
+          currentFrameRef.current = (currentFrameRef.current + 1) % TOTAL_FRAMES;
+          lastTime = time - (elapsed % interval);
+        }
+
+        animationFrameIdRef.current = requestAnimationFrame(render);
+      };
+
+      animationFrameIdRef.current = requestAnimationFrame(render);
+    };
 
     return () => {
+      isMounted = false;
       clearTimeout(logoTimer);
       clearTimeout(hideTimer);
+      clearTimeout(loadTimeout);
+      if (animationFrameIdRef.current) {
+        cancelAnimationFrame(animationFrameIdRef.current);
+      }
     };
   }, []);
 
@@ -94,17 +193,11 @@ export default function NewHero() {
         {/* Gradiente de fundo animado */}
         <div className="absolute inset-0 animated-gradient opacity-30" />
 
-        {/* Vídeo do mapa como fundo em autoplay, velocidade 0.5x e sem som */}
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
+        {/* Canvas da animação de sequência de imagens como fundo do Hero */}
+        <canvas
+          ref={canvasRef}
           className="hero-video-bg"
-        >
-          <source src="/mapa.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Grade de fundo geométrica semi-transparente */}
         <div className="absolute inset-0 opacity-[0.04]">
