@@ -135,7 +135,7 @@ export default function Sobre() {
               Inteligência · Consultoria & Viabilidade
             </span>
 
-            <h2 className="flex flex-col gap-1">
+            <h2 className="flex flex-col gap-1 mt-10">
               <span className="font-poppins text-2xl md:text-[32px] font-semibold text-[#002047] leading-tight">
                 Não apenas enviamos.
               </span>
@@ -174,11 +174,11 @@ export default function Sobre() {
           </span>
 
           {/* Grid de Cards dos Segmentos Atendidos com divisores internos */}
-          <div className="w-full max-w-210.5 flex flex-col md:flex-row md:items-stretch rounded-sm overflow-hidden divide-y md:divide-y-0 md:divide-x divide-[#D9D9D9]">
+          <div className="w-full max-w-210.5 flex flex-col md:flex-row md:items-stretch rounded-sm overflow-hidden gap-4">
             {segmentos.map((seg, idx) => (
               <div
                 key={idx}
-                className="flex-1 bg-[#FCFAF6] px-6 py-10 md:py-8 lg:px-7 lg:py-9 flex flex-col items-center text-center gap-5 transition-colors duration-300 hover:bg-[#FAF6EE] group"
+                className="flex-1 bg-[#FCFAF6] px-6 py-10 md:py-8 lg:px-7 lg:py-9 flex flex-col items-center text-center gap-5 transition-colors duration-300 hover:bg-[#FAF6EE] group shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.12)]"
               >
                 {/* Ícone correspondente do segmento */}
                 <div className="relative w-15 h-15 transition-transform duration-300 group-hover:scale-110">
@@ -191,12 +191,12 @@ export default function Sobre() {
                 </div>
 
                 {/* Título do segmento usando a fonte serifada EB Garamond */}
-                <h3 className="font-garamond text-2xl font-medium text-[#131B26] mt-2">
+                <h3 className="text-[19.75px] font-medium text-[#131B26] mt-2">
                   {seg.title}
                 </h3>
 
                 {/* Descrição resumida do segmento */}
-                <p className="font-instrument text-sm text-[#131B26]/70 leading-relaxed max-w-53.75">
+                <p className="text-[15px] md:text-[17.5px] text-[#131B26]/70 leading-relaxed max-w-53.75">
                   {seg.description}
                 </p>
               </div>
