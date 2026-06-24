@@ -6,6 +6,7 @@ import NewHero from "@/components/sections/newHero";
 import Sobre from "@/components/sections/Sobre";
 import LogisticaEventosArte from "@/components/sections/LogisticaEventosArte";
 import DesafioDeMercado from "@/components/sections/DesafioDeMercado";
+import FundadorCTA from "@/components/sections/FundadorCTA";
 import ForeignTrade from "@/components/sections/ForeignTrade";
 import Previsibilidade from "@/components/sections/Previsibilidade";
 
@@ -22,6 +23,7 @@ export default function Home() {
         <Sobre />
         <LogisticaEventosArte />
         <DesafioDeMercado />
+        <FundadorCTA />
         <ForeignTrade />
         <Previsibilidade />
       </main>
