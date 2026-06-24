@@ -55,41 +55,77 @@ export default function LogisticaEventosArte() {
         }
       );
 
-      // 3. Animação do vídeo da caixa (revelação com slide-in da esquerda)
+      // 3. Animação de revelação dos cartões de serviço
       gsap.fromTo(
-        videoContainerRef.current,
-        { opacity: 0, x: -50 },
+        ".card-step-animate",
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: "power3.out",
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: videoContainerRef.current,
-            start: "top 80%",
+            trigger: ".card-step-animate",
+            start: "top 90%",
           },
         }
       );
 
-      // 4. Animação dos textos da direita (fade-in com slide-up sequencial)
-      if (textContentRef.current) {
-        const textElements = textContentRef.current.children;
+      // 4. Animação do vídeo da caixa (revelação com slide-in da esquerda)
+      gsap.utils.toArray(".box-video-animate").forEach((el: any) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, x: -40 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+            },
+          }
+        );
+      });
+
+      // 5. Animação dos textos da seção de proteção
+      gsap.utils.toArray(".box-text-animate").forEach((el: any) => {
+        const textElements = el.children;
         gsap.fromTo(
           textElements,
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 25 },
           {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            stagger: 0.2,
+            stagger: 0.15,
             ease: "power2.out",
             scrollTrigger: {
-              trigger: textContentRef.current,
-              start: "top 80%",
+              trigger: el,
+              start: "top 85%",
             },
           }
         );
-      }
+      });
+
+      // 6. Animação de entrada dos itens da galeria
+      gsap.fromTo(
+        ".gallery-image-animate",
+        { opacity: 0, scale: 0.95 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.04,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".gallery-image-animate",
+            start: "top 92%",
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert(); // Limpar animações ao desmontar o componente
@@ -98,7 +134,7 @@ export default function LogisticaEventosArte() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#ffffff] overflow-hidden font-poppins text-zinc-900"
+      className="relative w-full overflow-hidden font-poppins text-zinc-900 bg-white"
     >
       {/* Banner Superior com a imagem de background */}
       <div
@@ -108,9 +144,6 @@ export default function LogisticaEventosArte() {
           backgroundImage: "url('/background-licho-artes.png')",
         }}
       >
-        {/* Overlay escuro elegante para garantir contraste com o texto */}
-        {/* <div className="absolute inset-0 bg-black/40" /> */}
-
         {/* Cartão de Logística de Nicho (Caixa Branca Flutuante) - Versão Desktop */}
         <div
           ref={cardRef}
@@ -129,7 +162,6 @@ export default function LogisticaEventosArte() {
               <span className="font-light text-[40px] text-[#3F3731]">do Design Brasileiro.</span>
             </h2>
           </div>
-
         </div>
       </div>
 
@@ -150,78 +182,187 @@ export default function LogisticaEventosArte() {
         </div>
       </div>
 
-      <div className="w-full mx-auto px-10 sm:px-15 pt-8 md:pt-20 text-center max-w-7xl">
-        <p className="text-[#3F3731]/80 font-poppins font-light text-[24px] sm:text-[28px] leading-relaxed mt-10">
-          Somos especialistas em cargas sensíveis. De mobiliário modernista a obras de arte únicas, cuidamos da coleta,  embalagem sob medida e entrega  porta-a-porta (White Glove).
-        </p>
-      </div>
+      {/* Conteúdo Abaixo do Banner com cor de fundo off-white */}
+      <div className="w-full  bg-white pt-0 md:pt-28 pb-24">
+        {/* Parágrafo de Introdução */}
+        <div className="w-full mx-auto px-6 sm:px-12 pt-12 pb-16 text-center max-w-5xl">
+          <p className="text-[#3F3731] font-poppins font-light text-[20px] md:text-[36px] lg:leading-13.75 tracking-tight">
+            Exportar mobiliário assinado e obras de arte exige mais do que um frete comum. Exige cuidado milimétrico. Nós cuidamos de todo o processo — desde a embalagem sob medida até a entrega final no destino.
+          </p>
+        </div>
 
-      {/* Bloco de Conteúdo Inferior (Vídeo e Informações de Proteção Técnica) */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 lg:pt-30 pb-20 lg:pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        {/* Grade de Três Cartões de Serviços */}
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 pb-20">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Card 1: Embalagem Sob Medida */}
+            <div className="card-step-animate col-span-1 bg-white rounded-[15px] p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/[0.02] flex flex-col justify-start text-left">
+              <div className="flex items-center gap-2 mb-3 justify-start">
+                <span className="text-[20px] leading-none">📦</span>
+                <span className="font-poppins font-semibold text-[15px] lg:text-[18px] text-[#8C6D58]">
+                  Embalagem Sob Medida
+                </span>
+              </div>
+              <p className="font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
+                Proteção planejada e desenvolvida especificamente para a anatomia de cada peça.
+              </p>
+            </div>
 
+            {/* Card 2: Trajeto Seguro */}
+            <div className="card-step-animate col-span-1 bg-white rounded-[15px] p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/[0.02] flex flex-col justify-start text-left">
+              <div className="flex items-center gap-2 mb-3 justify-start">
+                <span className="text-[20px] leading-none">✈️</span>
+                <span className="font-poppins font-semibold text-[15px] lg:text-[18px] text-[#3B6B88]">
+                  Trajeto Seguro
+                </span>
+              </div>
+              <p className="font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
+                Gestão aduaneira e logística internacional para feiras, galerias e eventos.
+              </p>
+            </div>
+
+            {/* Card 3: Entrega White Glove (Ocupa 2 colunas no mobile) */}
+            <div className="card-step-animate col-span-2 lg:col-span-1 bg-white rounded-[15px] p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/[0.02] flex flex-col justify-start text-center lg:text-left">
+              <div className="flex items-center gap-2 mb-3 justify-center lg:justify-start">
+                <span className="text-[20px] leading-none">🧤</span>
+                <span className="font-poppins font-semibold text-[15px] lg:text-[18px] text-[#3C7A5C]">
+                  Entrega White Glove
+                </span>
+              </div>
+              <p className="font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
+                Manuseio técnico e cuidadoso até o posicionamento final no destino.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bloco de Proteção Técnica - Versão Desktop */}
+        <div className="hidden lg:flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-20 mb-20 py-16 gap-16 bg-[#f3ede9]/70 rounded-2xl shadow-mauve-400/30">
           {/* Lado Esquerdo: Vídeo da Caixa */}
-          <div
-            ref={videoContainerRef}
-            className="col-span-1 lg:col-span-6 w-full lg:max-w-[626px] order-2 lg:order-1 mt-6 lg:mt-0"
-          >
-            <div className="relative w-full aspect-[626/405] rounded-[25px] overflow-hidden shadow-[3px_5px_10px_0px_rgba(0,0,0,0.05)]">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                <source src="/caixa.mp4" type="video/mp4" />
-                Seu navegador não suporta a tag de vídeo.
-              </video>
+          <div className="box-video-animate w-full max-w-[500px] shrink-0">
+            <div className="relative w-full aspect-[626/405] overflow-hidden opacity-70">
+              <Image
+                src="/caixa.webp"
+                alt="Caixa de madeira de proteção para logística"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 500px"
+                priority
+              />
             </div>
           </div>
 
-          {/* Lado Direito: Textos e White Gloves */}
-          <div
-            ref={textContentRef}
-            className="col-span-1 lg:col-span-6 lg:col-start-7 lg:max-w-[523px] flex flex-col justify-start gap-6 order-1 lg:order-2"
-          >
-            <h3 className="font-poppins text-3xl sm:text-4xl lg:text-[49px] font-light text-[#002047] leading-tight">
+          {/* Divisor Vertical */}
+          <div className="w-[1px] h-[180px] bg-zinc-200 self-center shrink-0" />
+
+          {/* Lado Direito: Informações */}
+          <div className="box-text-animate flex flex-col gap-4 max-w-[500px] text-left">
+            <h3 className="font-poppins text-[22px] md:text-[44px] leading-[1] font-light text-[#002047]">
               Proteção técnica <br />
-              à prova de trajetos.
-            </h3>
-
-            <p className="font-poppins font-light text-base sm:text-lg text-[#3F3731]/75 leading-relaxed">
-              Expertise técnica em logística internacional aplicada a mobiliário assinado, obras de arte e itens delicados. Logística para Feiras, Exposições e Eventos Internacionais — cada caixa é projetada para a peça que protege.
-            </p>
-
-            <p className="font-poppins font-light text-base sm:text-lg text-[#3F3731]/75 leading-relaxed">
-              Pinho seco, berço interno em espuma técnica revestida de tecido técnico, camadas de papel kraft que respiram com a mercadoria. Protocolos de conservação preventiva certificados.
-            </p>
-
-            {/* Box Serviço White Gloves */}
-            <div className="w-full bg-[#FCFAF6]/60 border-l-[3px] border-[#002047]/40 rounded-r-[15px] p-6 sm:p-8 flex flex-col gap-3 relative overflow-hidden mt-2">
-              <span className="text-[10px] font-semibold tracking-wider text-[#002047]/75 uppercase">
-                Serviço White Gloves
+              <span className="font-light text-[#a3a09d] text-[22px] md:text-[40px]">
+                à prova de trajetos.
               </span>
-              <p className="font-poppins font-light text-sm sm:text-[15px] text-[#3F3731]/90 leading-relaxed">
-                Um serviço de entrega técnica que vai além do transporte, garantindo o manuseio cuidadoso e a integridade total da peça no destino final.
-              </p>
+            </h3>
+            <p className="font-poppins font-light text-[22px] text-[#7A7470] leading-relaxed">
+              Expertise técnica em logística internacional aplicada a mobiliário assinado, obras de arte e itens delicados. Logística para Feiras, Exposições e Eventos Internacionais.
+            </p>
+            <span className="font-poppins text-[16px] font-medium text-[#A19B95] uppercase tracking-wider mt-2 block">
+              Entrega técnica com máximo cuidado
+            </span>
+          </div>
+        </div>
 
-              {/* Rodapé do box com ícone e texto */}
-              <div className="flex items-center gap-3 mt-2 text-[#3F3731]/60 text-xs sm:text-[12px] font-light">
-                <div className="relative w-5 h-5 flex items-center justify-center">
-                  <Image
-                    src="/Airplane-light.svg"
-                    alt="Ícone de Avião"
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                  />
-                </div>
-                <span>Entrega técnica com máximo cuidado</span>
+        {/* Bloco de Proteção Técnica - Versão Mobile */}
+        <div className="flex lg:hidden flex-col gap-8 w-full px-6 py-12 bg-[#f3ede9]/90">
+          {/* Linha com Título e Vídeo */}
+          <div className="flex flex-row items-center justify-between gap-16 w-full">
+            {/* Esquerda: Título */}
+            <div className="box-text-animate flex flex-col gap-2 pl-4 border-l-2 border-[#002047] justify-center text-left">
+              <h3 className="font-poppins text-[22px] leading-tight font-semibold text-[#002047]">
+                Proteção técnica <br />
+                <span className="font-normal text-[#3F3731] text-[22px]">
+                  à prova de trajetos.
+                </span>
+              </h3>
+              <span className="font-poppins text-[10px] font-medium text-[#A19B95] uppercase tracking-wider mt-1 block">
+                Entrega técnica com máximo cuidado
+              </span>
+            </div>
+
+            {/* Direita: imagem Miniatura */}
+            <div className="box-video-animate w-[130px] sm:w-[180px] shrink-0">
+              <div className="relative w-full aspect-[626/405] rounded-[15px] overflow-hidden">
+                <Image
+                  src="/caixa.webp"
+                  alt="Caixa de madeira de proteção para logística"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 130px, (max-width: 1024px) 180px, 100vw"
+                />
               </div>
             </div>
           </div>
 
+          {/* Descrição Centralizada */}
+          <div className="w-full">
+            <p className="font-poppins font-light text-[14px] text-[#7A7470] leading-relaxed text-center px-4">
+              Expertise técnica em logística internacional aplicada a mobiliário assinado, obras de arte e itens delicados. Logística para Feiras, Exposições e Eventos Internacionais.
+            </p>
+          </div>
+        </div>
+
+        {/* Galeria de Fotos - Desktop */}
+        <div className="hidden lg:grid grid-cols-5 gap-[3px] w-full max-w-7xl mx-auto px-20 pt-8 pb-12">
+          {Array.from({ length: 10 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="gallery-image-animate relative aspect-square overflow-hidden bg-zinc-100 shadow-[0px_4px_10px_rgba(0,0,0,0.02)]"
+            >
+              <Image
+                src={`/gru-gallery/gru-gallery${idx + 1}.webp`}
+                alt={`Galeria GRU ${idx + 1}`}
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 1024px) 20vw, 15vw"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Galeria de Fotos - Mobile */}
+        <div className="flex lg:hidden flex-col gap-[3px] w-full px-6 pt-4 pb-8">
+          <div className="grid grid-cols-4 gap-[3px]">
+            {/* Primeiras 8 fotos */}
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="gallery-image-animate relative aspect-square overflow-hidden bg-zinc-100 shadow-[0px_2px_5px_rgba(0,0,0,0.02)]"
+              >
+                <Image
+                  src={`/gru-gallery/gru-gallery${idx + 1}.webp`}
+                  alt={`Galeria GRU ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="25vw"
+                />
+              </div>
+            ))}
+            {/* Últimas 2 fotos centralizadas */}
+            {Array.from({ length: 2 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="gallery-image-animate col-start-2 col-span-1 relative aspect-square overflow-hidden bg-zinc-100 shadow-[0px_2px_5px_rgba(0,0,0,0.02)]"
+                style={{ gridColumnStart: idx + 2 }}
+              >
+                <Image
+                  src={`/gru-gallery/gru-gallery${idx + 9}.webp`}
+                  alt={`Galeria GRU ${idx + 9}`}
+                  fill
+                  className="object-cover"
+                  sizes="25vw"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
