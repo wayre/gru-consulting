@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Instrument_Sans, EB_Garamond } from "next/font/google";
 import { ThemeInit } from "../.flowbite-react/init";
+import SmoothScroll from "../components/layout/SmoothScroll";
 import "./globals.css";
 
 // Configuração das fontes específicas do Figma (Poppins, Instrument Sans e EB Garamond)
@@ -40,6 +41,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-poppins">
         <ThemeInit />
+        <SmoothScroll />
         {children}
       </body>
     </html>
