@@ -1,9 +1,137 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Cache global das imagens do frame para evitar carregamento duplicado no desktop e mobile
+const framesCache: HTMLImageElement[] = [];
+let preloadedPromise: Promise<HTMLImageElement[]> | null = null;
+const frameCount = 164;
+const getFrameUrl = (idx: number) => `/box-frames/box-${String(idx).padStart(3, "0")}.png`;
+
+const preloadFrames = (): Promise<HTMLImageElement[]> => {
+  if (typeof window === "undefined") {
+    return Promise.resolve([]);
+  }
+  if (preloadedPromise) return preloadedPromise;
+
+  preloadedPromise = new Promise((resolve) => {
+    let loadedCount = 0;
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new window.Image();
+      img.src = getFrameUrl(i);
+      const onImageLoad = () => {
+        loadedCount++;
+        if (loadedCount === frameCount) {
+          resolve(framesCache);
+        }
+      };
+      img.onload = onImageLoad;
+      img.onerror = onImageLoad;
+      framesCache.push(img);
+    }
+  });
+
+  return preloadedPromise;
+};
+
+interface BoxCanvasSequenceProps {
+  className?: string;
+}
+
+function BoxCanvasSequence({ className }: BoxCanvasSequenceProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [, setImagesLoaded] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    // Configura tamanho nativo do canvas correspondente às dimensões das imagens originais
+    canvas.width = 626;
+    canvas.height = 405;
+
+    // Objeto para controle do frame atual pelo GSAP
+    const boxSequence = { frame: 0 };
+
+    // Desenha o frame específico no canvas
+    const renderFrame = (frameIndex: number) => {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      const img = framesCache[frameIndex];
+      if (img && img.complete && img.naturalWidth !== 0) {
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+      } else {
+        // Fallback: se o frame atual não estiver pronto, tenta o primeiro frame
+        const fallbackImg = framesCache[0];
+        if (fallbackImg && fallbackImg.complete && fallbackImg.naturalWidth !== 0) {
+          context.drawImage(fallbackImg, 0, 0, canvas.width, canvas.height);
+        }
+      }
+    };
+
+    // Inicia o pré-carregamento das imagens
+    preloadFrames().then(() => {
+      setImagesLoaded(true);
+      renderFrame(Math.round(boxSequence.frame));
+    });
+
+    // Registra listener para redesenhar assim que as imagens forem carregadas individualmente
+    const handleLoad = () => {
+      renderFrame(Math.round(boxSequence.frame));
+    };
+
+    framesCache.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", handleLoad);
+      }
+    });
+
+    // Registra a animação de scroll no GSAP
+    const animation = gsap.to(boxSequence, {
+      frame: frameCount - 1,
+      snap: "frame",
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top bottom", // Começa a rolar quando entra no viewport
+        end: "bottom top",   // Termina quando sai do viewport
+        scrub: 0.5,          // Sincroniza suavemente com o movimento de scroll
+        onUpdate: () => {
+          renderFrame(Math.round(boxSequence.frame));
+        },
+      },
+    });
+
+    // Primeira renderização local
+    renderFrame(0);
+
+    return () => {
+      framesCache.forEach((img) => {
+        img.removeEventListener("load", handleLoad);
+      });
+      if (animation.scrollTrigger) {
+        animation.scrollTrigger.kill();
+      }
+      animation.kill();
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className={`${className} relative overflow-hidden`}>
+      <canvas
+        ref={canvasRef}
+        className="w-full h-auto aspect-[626/405] block object-cover bg-transparent"
+        style={{ maxWidth: "100%", maxHeight: "100%" }}
+      />
+    </div>
+  );
+}
 
 /**
  * Seção de Logística de Eventos e Arte da GRU Consulting.
@@ -239,16 +367,7 @@ export default function LogisticaEventosArte() {
         <div className="hidden lg:flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-20 mb-20 py-16 gap-16 bg-[#f3ede9]/70 rounded-2xl shadow-mauve-400/30">
           {/* Lado Esquerdo: Vídeo da Caixa */}
           <div className="box-video-animate w-full max-w-[500px] shrink-0">
-            <div className="relative w-full aspect-[626/405] overflow-hidden opacity-70">
-              <Image
-                src="/caixa.webp"
-                alt="Caixa de madeira de proteção para logística"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 500px"
-                priority
-              />
-            </div>
+            <BoxCanvasSequence className="relative w-full aspect-[626/405] overflow-hidden opacity-70" />
           </div>
 
           {/* Divisor Vertical */}
@@ -290,15 +409,7 @@ export default function LogisticaEventosArte() {
 
             {/* Direita: imagem Miniatura */}
             <div className="box-video-animate w-[130px] sm:w-[180px] shrink-0">
-              <div className="relative w-full aspect-[626/405] rounded-[15px] overflow-hidden">
-                <Image
-                  src="/caixa.webp"
-                  alt="Caixa de madeira de proteção para logística"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 130px, (max-width: 1024px) 180px, 100vw"
-                />
-              </div>
+              <BoxCanvasSequence className="relative w-full aspect-[626/405] rounded-[15px] overflow-hidden" />
             </div>
           </div>
 
