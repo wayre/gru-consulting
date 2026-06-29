@@ -65,14 +65,14 @@ export function Hero() {
       // 3. Cones de luz surgem de baixo para cima com stagger suave
       tl.to(".cone", { scaleY: 1, opacity: 1, duration: 1.5, ease: "power2.out", stagger: 0.1 }, 0.5);
 
-      // 4. Elementos textuais entram em sequência de stagger
-      tl.to(".hero-sub", { opacity: 1, y: 0, duration: 0.8 }, 0.6)
-        .to(".hero-title", { opacity: 1, y: 0, duration: 1 }, 0.7)
-        .to(".hero-desc", { opacity: 1, y: 0, duration: 0.8 }, 0.8)
-        .to(".hero-btn", { opacity: 1, y: 0, duration: 0.8 }, 0.9);
+      // 4. Elementos textuais entram em sequência com delay de 0.4 segundos após a finalização do logo de loading (2.0s + 0.4s = 2.4s)
+      tl.to(".hero-sub", { opacity: 1, y: 0, duration: 0.8 }, 2.4)
+        .to(".hero-title", { opacity: 1, y: 0, duration: 1 }, 2.5)
+        .to(".hero-desc", { opacity: 1, y: 0, duration: 0.8 }, 2.6)
+        .to(".hero-btn", { opacity: 1, y: 0, duration: 0.8 }, 2.7);
 
-      // 5. Imagem do consultor desliza sutilmente da direita e ganha escala
-      tl.to(".hero-image", { opacity: 1, x: 0, scale: 1, duration: 1.4, ease: "power3.out" }, 0.8);
+      // 5. Imagem do consultor desliza sutilmente da direita e ganha escala com delay de 2.6 segundos
+      tl.to(".hero-image", { opacity: 1, x: 0, scale: 1, duration: 1.4, ease: "power3.out" }, 2.6);
 
       // 6. Parceiros/Marcas surgem no rodapé ao final
       tl.to(".hero-partners", { opacity: 1, y: 0, duration: 0.8 }, 1.1);

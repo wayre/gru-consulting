@@ -283,16 +283,15 @@
   inset: 0;
   background-color: #000000;
   z-index: 45; /* Aumentado para cobrir o conteúdo durante a entrada */
-  transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.5s;
+  /* Transiciona apenas a opacidade para evitar reflows de layout ou repaints de visibilidade no navegador */
+  transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none; /* Evita capturar cliques depois que desaparecer */
   opacity: 1;
-  visibility: visible;
 }
 
 /* Estado após o carregamento da página */
 .loading-overlay.fade-out {
   opacity: 0;
-  visibility: hidden;
 }
 
 /* Logotipo posicionado acima da tela de carregamento */
@@ -398,7 +397,8 @@
 
 .is-ready .main-container {
   animation: mainContainerFadeIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  animation-delay: 1200ms;
+  /* Insere um delay de 0.4 segundos após a finalização da animação do logo de loading (0.8s exibição + 1.2s de fade-out = 2.0s. Portanto, 2.0s + 0.4s = 2.4s / 2400ms) */
+  animation-delay: 2400ms;
 }
 
 /* Animações de Slide Left e Fade para o texto rotativo das frases do Hero */
