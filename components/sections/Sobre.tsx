@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function Sobre() {
   const textRef = useRef<HTMLParagraphElement>(null);
   const strategyTextRef = useRef<HTMLParagraphElement>(null);
+  const intelligenceRef = useRef<HTMLDivElement>(null);
 
   // Efeito para criar a animação de scroll nos textos com GSAP e ScrollTrigger
   useEffect(() => {
@@ -27,8 +28,8 @@ export default function Sobre() {
             stagger: 0.02,
             scrollTrigger: {
               trigger: textRef.current,
-              start: "top 90%",
-              end: "bottom 50%",
+              start: "top 96%",
+              end: "bottom 85%",
               scrub: 3, // Lag/Inércia de scroll suave de 3 segundos
             },
           });
@@ -46,12 +47,30 @@ export default function Sobre() {
             stagger: 0.02,
             scrollTrigger: {
               trigger: strategyTextRef.current,
-              start: "top 90%",
-              end: "bottom 50%",
+              start: "top 96%",
+              end: "bottom 85%",
               scrub: 3, // Lag/Inércia de scroll suave de 3 segundos
             },
           });
         }
+      }
+
+      // Animação fade-in-up controlada por scroll para os filhos do bloco de inteligência e viabilização
+      if (intelligenceRef.current) {
+        const children = intelligenceRef.current.children;
+        gsap.from(children, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: intelligenceRef.current,
+            start: "top 95%", // Inicia a animação quando o topo do bloco entra na tela
+            end: "top 65%",   // Completa a animação quando o bloco subir um pouco mais
+            scrub: 1.5,       // Vincula o progresso da animação ao scroll com suavização
+          },
+        });
       }
     });
 
@@ -104,7 +123,7 @@ export default function Sobre() {
 
 
         {/* Bloco sobre inteligência e viabilização */}
-        <div className="mx-auto max-w-278.25 grid grid-cols-1 sm:grid-cols-[35%_65%] sm:gap-10 gap-12 lg:grid-cols-12 lg:gap-16 items-center my-16 lg:my-20">
+        <div ref={intelligenceRef} className="mx-auto max-w-278.25 grid grid-cols-1 sm:grid-cols-[35%_65%] sm:gap-10 gap-12 lg:grid-cols-12 lg:gap-16 items-center my-16 lg:my-20">
 
           {/* Lado Esquerdo: Logo Box e Botão de Falar no WhatsApp */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center">

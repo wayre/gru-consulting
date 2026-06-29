@@ -17,7 +17,6 @@ export default function NewHero() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [logoFadeOut, setLogoFadeOut] = useState(false);
-  const [logoHidden, setLogoHidden] = useState(false);
 
   // Estados para controle do texto rotativo (slide left + fade)
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -51,7 +50,6 @@ export default function NewHero() {
     const images: HTMLImageElement[] = [];
     let loadedCount = 0;
     let logoTimer: any;
-    let hideTimer: any;
     let loadTimeout: any;
 
     // Função para obter a URL do frame formatada
@@ -80,15 +78,12 @@ export default function NewHero() {
       // Dispara o estado pronto para ocultar o loading overlay
       setIsLoaded(true);
 
-      // Inicia o fade-out do logo após 1 segundo (1000ms)
+      // Inicia o fade-out do logo após no mínimo 0.8 segundos (800ms)
       logoTimer = setTimeout(() => {
         if (isMounted) setLogoFadeOut(true);
-      }, 1000);
+      }, 800);
 
-      // Oculta completamente o logo após o término da animação (2200ms)
-      hideTimer = setTimeout(() => {
-        if (isMounted) setLogoHidden(true);
-      }, 2200);
+
 
       // Inicia o pré-carregamento em lote dos demais frames após um leve delay para priorizar LCP
       loadTimeout = setTimeout(() => {
@@ -122,8 +117,14 @@ export default function NewHero() {
 
       const firstLoadedImg = imagesRef.current[0];
       if (firstLoadedImg) {
-        canvas.width = firstLoadedImg.naturalWidth;
-        canvas.height = firstLoadedImg.naturalHeight;
+        // Redefine a largura e altura do canvas apenas se forem diferentes dos valores atuais,
+        // evitando que o navegador limpe o canvas e cause piscadas visuais (flickering).
+        if (canvas.width !== firstLoadedImg.naturalWidth) {
+          canvas.width = firstLoadedImg.naturalWidth;
+        }
+        if (canvas.height !== firstLoadedImg.naturalHeight) {
+          canvas.height = firstLoadedImg.naturalHeight;
+        }
       }
 
       let lastTime = 0;
@@ -138,7 +139,6 @@ export default function NewHero() {
         if (elapsed >= interval) {
           const currentImg = imagesRef.current[currentFrameRef.current];
           if (currentImg && currentImg.complete) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(currentImg, 0, 0, canvas.width, canvas.height);
           }
           currentFrameRef.current = (currentFrameRef.current + 1) % TOTAL_FRAMES;
@@ -154,7 +154,6 @@ export default function NewHero() {
     return () => {
       isMounted = false;
       clearTimeout(logoTimer);
-      clearTimeout(hideTimer);
       clearTimeout(loadTimeout);
       if (animationFrameIdRef.current) {
         cancelAnimationFrame(animationFrameIdRef.current);
@@ -230,7 +229,7 @@ export default function NewHero() {
         <div className={`loading-overlay ${isLoaded ? "fade-out" : ""}`} />
 
         {/* Logo GRU Consulting com efeito color-dodge (posicionado de forma absoluta via CSS) */}
-        <div className={`mb-8 flex justify-center logo-container ${logoFadeOut ? "fade-out" : ""} ${logoHidden ? "hidden" : ""}`}>
+        <div className={`mb-8 flex justify-center logo-container ${logoFadeOut ? "fade-out" : ""}`}>
           <svg
             viewBox="0 0 544 335"
             fill="none"
