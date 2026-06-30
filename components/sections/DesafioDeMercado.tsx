@@ -79,11 +79,11 @@ export default function DesafioDeMercado() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#0B0D12] text-white font-poppins py-20 md:py-32 overflow-hidden"
+      className="w-full bg-[#131B26] text-white font-poppins py-20 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-12 lg:px-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-start">
-          
+
           {/* Coluna da Esquerda: Rótulo e Título Principal */}
           <div
             ref={leftColRef}
