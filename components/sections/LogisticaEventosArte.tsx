@@ -100,7 +100,7 @@ function BoxCanvasSequence({ className }: BoxCanvasSequenceProps) {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top bottom", // Começa a rolar quando entra no viewport
-        end: "bottom top",   // Termina quando sai do viewport
+        end: "top 45%",   // Termina quando sai do viewport
         scrub: 0.5,          // Sincroniza suavemente com o movimento de scroll
         onUpdate: () => {
           renderFrame(Math.round(boxSequence.frame));
@@ -132,6 +132,47 @@ function BoxCanvasSequence({ className }: BoxCanvasSequenceProps) {
     </div>
   );
 }
+
+// Dados dos cartões de serviços
+interface ServiceCard {
+  id: number;
+  icon: string;
+  title: string;
+  titleColor: string;
+  description: string;
+  cardClass: string; // Classes de layout específicas do card
+  headerClass: string; // Classes de alinhamento do ícone/título
+}
+
+const SERVICES_DATA: ServiceCard[] = [
+  {
+    id: 1,
+    icon: "📦",
+    title: "Embalagem Sob Medida",
+    titleColor: "text-[#8C6D58]",
+    description: "Proteção planejada e desenvolvida especificamente para a anatomia de cada peça.",
+    cardClass: "col-span-1 text-left",
+    headerClass: "justify-start",
+  },
+  {
+    id: 2,
+    icon: "✈️",
+    title: "Trajeto Seguro",
+    titleColor: "text-[#3B6B88]",
+    description: "Gestão aduaneira e logística internacional para feiras, galerias e eventos.",
+    cardClass: "col-span-1 text-left",
+    headerClass: "justify-start",
+  },
+  {
+    id: 3,
+    icon: "🧤",
+    title: "Entrega White Glove",
+    titleColor: "text-[#3C7A5C]",
+    description: "Manuseio técnico e cuidadoso até o posicionamento final no destino.",
+    cardClass: "col-span-2 lg:col-span-1 text-center lg:text-left",
+    headerClass: "justify-center lg:justify-start",
+  },
+];
 
 /**
  * Seção de Logística de Eventos e Arte da GRU Consulting.
@@ -262,14 +303,15 @@ export default function LogisticaEventosArte() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden font-poppins text-zinc-900 bg-white"
+      className="relative w-full overflow-hidden font-poppins text-zinc-900 bg-[#F6F1ED]"
     >
       {/* Banner Superior com a imagem de background */}
       <div
         ref={titleBgRef}
-        className="relative w-full h-70 sm:h-75 lg:h-120 bg-cover bg-center flex items-center"
+        className="relative w-full h-60 sm:h-75 lg:h-120 bg-cover bg-center flex items-center"
         style={{
           backgroundImage: "url('/background-licho-artes.png')",
+          backgroundPosition: "top right",
         }}
       >
         {/* Cartão de Logística de Nicho (Caixa Branca Flutuante) - Versão Desktop */}
@@ -294,88 +336,83 @@ export default function LogisticaEventosArte() {
       </div>
 
       {/* Cartão de Logística de Nicho - Versão Mobile */}
-      <div className="flex lg:hidden px-6 -mt-10 relative z-20 scale-90">
+      <div className="flex lg:hidden md:px-6 -mt-10 relative z-20 scale-90 flex-col">
         <div className="bg-[#FFFDFB] rounded-[20px] p-8 shadow-[3px_5px_10px_0px_rgba(0,0,0,0.05)] relative">
           <div className="absolute -top-3 left-7.5 bg-[#423E3E] border border-black/5 rounded-md px-4 py-1">
             <span className="text-[10px] font-medium text-[#D9D9D9] tracking-wider uppercase">
               Logística de Nicho
             </span>
           </div>
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start">
-            <h2 className="font-poppins text-[22px] sm:text-4xl lg:text-[50px] font-bold leading-tight text-[#002047] max-w-2xl">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-2 md:px-6 sm:px-8 lg:px-12 flex flex-col justify-start">
+            <h2 className="font-poppins text-[26px] sm:text-4xl lg:text-[50px] font-bold leading-tight text-[#002047] max-w-2xl">
               A Logística por trás <br />
-              <span className="font-light text-[36px] text-[#3F3731] leading-tight">do Design Brasileiro.</span>
+              <span className="font-light text-[32px] text-[#3F3731] leading-tight whitespace-nowrap">do Design Brasileiro.</span>
             </h2>
           </div>
+          <div className="px-2 pt-4 md:hidden md:px-6 text-[17px] font-light text-justify">
+            Somos especialistas em cargas sensíveis. De mobiliário modernista a obras de arte únicas, cuidamos da coleta,  embalagem sob medida e entrega  porta-a-porta (White Glove).
+          </div>
         </div>
+
       </div>
 
       {/* Conteúdo Abaixo do Banner com cor de fundo off-white */}
-      <div className="w-full  bg-white pt-0 md:pt-28 pb-24">
+      <div className="w-full  bg-[#F6F1ED] pt-0 md:pt-8 lg:pt-28 pb-24 px-6">
         {/* Parágrafo de Introdução */}
-        <div className="w-full mx-auto px-6 sm:px-12 pt-12 pb-16 text-center max-w-5xl">
-          <p className="text-[#3F3731] font-poppins font-light text-[20px] md:text-[36px] lg:leading-13.75 tracking-tight">
-            Exportar mobiliário assinado e obras de arte exige mais do que um frete comum. Exige cuidado milimétrico. Nós cuidamos de todo o processo — desde a embalagem sob medida até a entrega final no destino.
+        <div className="w-full mx-auto px-6 sm:px-12 py-12 text-center max-w-5xl">
+          <p className="text-[#3F3731] font-poppins font-light text-[24px] md:text-[36px] lg:leading-13.75 tracking-tight">
+            Exportar <b>mobiliário assinado</b> e <b>obras de arte</b> exige mais do que um frete comum. Exige cuidado milimétrico. Nós cuidamos de todo o processo — desde a embalagem sob medida até a entrega final no destino.
           </p>
         </div>
+
+        <div className="mb-20 block md:hidden h-[100px]">
+          <div className="box-video-animate w-full">
+            <BoxCanvasSequence className="relative w-full aspect-[626/405] rounded-[15px] overflow-hidden" />
+          </div>
+        </div>
+
+        <div className="w-full mx-auto px-6 sm:px-12 py-12 text-center max-w-5xl">
+          <p className="text-[#3F3731] font-poppins font-light text-[17px] md:text-[36px] lg:leading-13.75 tracking-tight">
+            Logística internacional aplicada a mobiliário assinado, obras de arte e itens delicados. Logística para Feiras, Exposições e Eventos Internacionais
+          </p>
+        </div>
+
 
         {/* Grade de Três Cartões de Serviços */}
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 pb-20">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Card 1: Embalagem Sob Medida */}
-            <div className="card-step-animate col-span-1 bg-white rounded-[15px] p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/[0.02] flex flex-col justify-start text-left">
-              <div className="flex items-center gap-2 mb-3 justify-start">
-                <span className="text-[20px] leading-none">📦</span>
-                <span className="font-poppins font-semibold text-[15px] lg:text-[18px] text-[#8C6D58]">
-                  Embalagem Sob Medida
-                </span>
+            {SERVICES_DATA.map((service) => (
+              <div
+                key={service.id}
+                className={`card-step-animate bg-white rounded-[15px] py-5 p-4 md:p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/2 flex flex-col md:justify-start ${service.cardClass}`}
+              >
+                <div className={`flex items-center gap-1 md:gap-2 ${service.headerClass}`}>
+                  <span className="text-[20px] leading-none">{service.icon}</span>
+                  <span className={`font-poppins font-semibold text-[15px] lg:text-[18px] ${service.titleColor}`}>
+                    {service.title}
+                  </span>
+                </div>
+                <p className="hidden sm:block font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-              <p className="font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
-                Proteção planejada e desenvolvida especificamente para a anatomia de cada peça.
-              </p>
-            </div>
-
-            {/* Card 2: Trajeto Seguro */}
-            <div className="card-step-animate col-span-1 bg-white rounded-[15px] p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/[0.02] flex flex-col justify-start text-left">
-              <div className="flex items-center gap-2 mb-3 justify-start">
-                <span className="text-[20px] leading-none">✈️</span>
-                <span className="font-poppins font-semibold text-[15px] lg:text-[18px] text-[#3B6B88]">
-                  Trajeto Seguro
-                </span>
-              </div>
-              <p className="font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
-                Gestão aduaneira e logística internacional para feiras, galerias e eventos.
-              </p>
-            </div>
-
-            {/* Card 3: Entrega White Glove (Ocupa 2 colunas no mobile) */}
-            <div className="card-step-animate col-span-2 lg:col-span-1 bg-white rounded-[15px] p-6 lg:p-8 shadow-[0px_8px_30px_rgba(0,0,0,0.03)] border border-black/[0.02] flex flex-col justify-start text-center lg:text-left">
-              <div className="flex items-center gap-2 mb-3 justify-center lg:justify-start">
-                <span className="text-[20px] leading-none">🧤</span>
-                <span className="font-poppins font-semibold text-[15px] lg:text-[18px] text-[#3C7A5C]">
-                  Entrega White Glove
-                </span>
-              </div>
-              <p className="font-poppins font-light text-[13px] lg:text-[15px] text-[#7A7470] leading-relaxed">
-                Manuseio técnico e cuidadoso até o posicionamento final no destino.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
 
         {/* Bloco de Proteção Técnica - Versão Desktop */}
         <div className="hidden lg:flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-20 mb-20 py-16 gap-16 bg-[#f3ede9]/70 rounded-2xl shadow-mauve-400/30">
           {/* Lado Esquerdo: Vídeo da Caixa */}
-          <div className="box-video-animate w-full max-w-[500px] shrink-0">
-            <BoxCanvasSequence className="relative w-full aspect-[626/405] overflow-hidden opacity-70" />
+          <div className="box-video-animate w-full max-w-125 shrink-0">
+            <BoxCanvasSequence className="relative w-full aspect-626/405 overflow-hidden opacity-70" />
           </div>
 
           {/* Divisor Vertical */}
-          <div className="w-[1px] h-[180px] bg-zinc-200 self-center shrink-0" />
+          <div className="w-px h-45 bg-zinc-200 self-center shrink-0" />
 
           {/* Lado Direito: Informações */}
-          <div className="box-text-animate flex flex-col gap-4 max-w-[500px] text-left">
-            <h3 className="font-poppins text-[22px] md:text-[44px] leading-[1] font-light text-[#002047]">
+          <div className="box-text-animate flex flex-col gap-4 max-w-125 text-left">
+            <h3 className="font-poppins text-[22px] md:text-[44px] leading-none font-light text-[#002047]">
               Proteção técnica <br />
               <span className="font-light text-[#a3a09d] text-[22px] md:text-[40px]">
                 à prova de trajetos.
@@ -405,11 +442,6 @@ export default function LogisticaEventosArte() {
               <span className="font-poppins text-[10px] font-medium text-[#A19B95] uppercase tracking-wider mt-1 block">
                 Entrega técnica com máximo cuidado
               </span>
-            </div>
-
-            {/* Direita: imagem Miniatura */}
-            <div className="box-video-animate w-[130px] sm:w-[180px] shrink-0">
-              <BoxCanvasSequence className="relative w-full aspect-[626/405] rounded-[15px] overflow-hidden" />
             </div>
           </div>
 
