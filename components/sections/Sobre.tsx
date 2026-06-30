@@ -10,6 +10,7 @@ export default function Sobre() {
   const textRef = useRef<HTMLParagraphElement>(null);
   const strategyTextRef = useRef<HTMLParagraphElement>(null);
   const intelligenceRef = useRef<HTMLDivElement>(null);
+  const segmentsContainerRef = useRef<HTMLDivElement>(null);
 
   // Efeito para criar a animação de scroll nos textos com GSAP e ScrollTrigger
   useEffect(() => {
@@ -69,6 +70,24 @@ export default function Sobre() {
             start: "top 95%", // Inicia a animação quando o topo do bloco entra na tela
             end: "top 65%",   // Completa a animação quando o bloco subir um pouco mais
             scrub: 1.5,       // Vincula o progresso da animação ao scroll com suavização
+          },
+        });
+      }
+
+      // Animação fade-in-up controlada por scroll para os cards dos segmentos atendidos
+      if (segmentsContainerRef.current) {
+        const cards = segmentsContainerRef.current.children;
+        gsap.from(cards, {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.4, // Propagação sequencial entre os cards conforme o scroll
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: segmentsContainerRef.current,
+            start: "top 95%", // Inicia quando o topo da seção entra na tela
+            end: "top 65%",   // Completa a animação quando a seção subir um pouco mais
+            scrub: 1.5,       // Vincula o progresso da animação à rolagem do mouse
           },
         });
       }
@@ -139,10 +158,10 @@ export default function Sobre() {
 
             {/* Link para Falar no WhatsApp */}
             <Link
-              href="https://wa.me/5500000000000"
+              href="/whatsapp"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 flex h-8.75 w-41.25 items-center justify-center rounded-[9px] bg-[#236253] text-[10px] font-semibold uppercase tracking-wider text-white shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#1a4b3f] hover:scale-105"
+              className="mt-4 hidden lg:flex h-8.75 w-41.25 items-center justify-center rounded-[9px] bg-[#236253] text-[10px] font-semibold uppercase tracking-wider text-white shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#1a4b3f] hover:scale-105"
             >
               Falar no WhatsApp
             </Link>
@@ -193,14 +212,17 @@ export default function Sobre() {
           </span>
 
           {/* Grid de Cards dos Segmentos Atendidos com divisores internos */}
-          <div className="w-full max-w-210.5 flex flex-col md:flex-row md:items-stretch rounded-sm overflow-hidden gap-4">
+          <div
+            ref={segmentsContainerRef}
+            className="w-full md:max-w-210.5 flex flex-col md:flex-row items-center md:items-stretch rounded-sm overflow-hidden gap-2 md:gap-4"
+          >
             {segmentos.map((seg, idx) => (
               <div
                 key={idx}
-                className="flex-1 bg-[#FCFAF6] px-6 py-10 md:py-8 lg:px-7 lg:py-9 flex flex-col items-center text-center gap-5 transition-colors duration-300 hover:bg-[#FAF6EE] group shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.12)]"
+                className="flex-1 md:bg-[#FCFAF6] md:px-6 md:py-8 lg:px-7 lg:py-9 flex flex-row md:flex-col items-center text-center gap-2 md:gap-5 transition-colors duration-300 md:hover:bg-[#FAF6EE] group md:shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.12)]"
               >
                 {/* Ícone correspondente do segmento */}
-                <div className="relative w-15 h-15 transition-transform duration-300 group-hover:scale-110">
+                <div className="relative flex w-[30vw] md:w-15 h-15 transition-transform duration-300 group-hover:scale-110 scale-130 md:scale-100">
                   <Image
                     src={seg.icon}
                     alt={`Ícone do segmento ${seg.title}`}
@@ -209,15 +231,17 @@ export default function Sobre() {
                   />
                 </div>
 
-                {/* Título do segmento usando a fonte serifada EB Garamond */}
-                <h3 className="text-[19.75px] font-medium text-[#131B26] mt-2">
-                  {seg.title}
-                </h3>
+                <div className="w-full flex flex-col items-start md:items-center">
+                  {/* Título do segmento usando a fonte serifada EB Garamond */}
+                  <h3 className="text-[19.75px] font-medium text-[#131B26] mt-2 text-left md:text-center">
+                    {seg.title}
+                  </h3>
 
-                {/* Descrição resumida do segmento */}
-                <p className="text-[15px] md:text-[17.5px] text-[#131B26]/70 leading-relaxed max-w-53.75">
-                  {seg.description}
-                </p>
+                  {/* Descrição resumida do segmento */}
+                  <p className="text-[15px] md:text-[17.5px] text-[#131B26]/70 leading-relaxed max-w-85 md:max-w-53.75 text-left md:text-center">
+                    {seg.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
