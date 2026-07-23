@@ -9,6 +9,8 @@ import DesafioDeMercado from "@/components/sections/DesafioDeMercado";
 import FundadorCTA from "@/components/sections/FundadorCTA";
 import ForeignTrade from "@/components/sections/ForeignTrade";
 import Previsibilidade from "@/components/sections/Previsibilidade";
+import BrandSection from "@/components/sections/BrandSection";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -26,6 +28,8 @@ export default function Home() {
         <FundadorCTA />
         <ForeignTrade />
         <Previsibilidade />
+        <BrandSection />
+        <Footer />
       </main>
     </div>
   );

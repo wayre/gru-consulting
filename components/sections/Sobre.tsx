@@ -116,14 +116,14 @@ export default function Sobre() {
   ];
 
   return (
-    <section className="about-section w-full bg-[#F2F2F2] py-16 md:py-24 pt-30 lg:pt-35 lg:pb-42.5 text-zinc-900 font-poppins">
+    <section className="about-section w-full bg-white py-16 md:py-24 pt-30 lg:pt-35 lg:pb-42.5 text-zinc-900 font-poppins">
       <div className="mx-auto max-w-7xl px-10 sm:px-6 lg:px-8">
 
         {/* Bloco de introdução principal da consultoria */}
         <div className="w-full md:w-[80%] about-main-text mx-auto max-w-231.25 text-center mb-10">
           <p
             ref={textRef}
-            className="font-instrument text-[26px] md:text-3xl lg:text-[36px] lg:leading-13.75 text-[#606060] font-normal"
+            className="text-[26px] md:text-3xl lg:text-[30px] lg:leading-13.75 text-[#606060] font-light"
           >
             {"Somos uma consultoria especializada em Comércio Exterior. Unimos experiência técnica e suporte completo em logística, despacho aduaneiro e câmbio para simplificar operações internacionais.".split(" ").map((word, wIdx, arr) => (
               <span key={wIdx} className="inline-block overflow-hidden align-bottom whitespace-nowrap">
@@ -219,7 +219,7 @@ export default function Sobre() {
             {segmentos.map((seg, idx) => (
               <div
                 key={idx}
-                className="flex-1 md:bg-[#FCFAF6] md:px-6 md:py-8 lg:px-7 lg:py-9 flex flex-row md:flex-col items-center text-center gap-2 md:gap-5 transition-colors duration-300 md:hover:bg-[#FAF6EE] group md:shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.12)]"
+                className="flex-1 md:bg-[#f8f8f8] md:px-6 md:py-8 lg:px-7 lg:py-9 flex flex-row md:flex-col items-center text-center gap-2 md:gap-5 transition-colors duration-300 md:hover:bg-[#ededed] group md:shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.12)]"
               >
                 {/* Ícone correspondente do segmento */}
                 <div className="relative flex w-[30vw] md:w-15 h-15 transition-transform duration-300 group-hover:scale-110 scale-130 md:scale-100">

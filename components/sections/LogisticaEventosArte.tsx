@@ -253,7 +253,7 @@ export default function LogisticaEventosArte() {
             ease: "power3.out",
             scrollTrigger: {
               trigger: el,
-              start: "top 85%",
+              start: "top 95%",
             },
           }
         );
@@ -401,7 +401,7 @@ export default function LogisticaEventosArte() {
         </div>
 
         {/* Bloco de Proteção Técnica - Versão Desktop */}
-        <div className="hidden lg:flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-20 mb-20 py-16 gap-16 bg-[#f3ede9]/70 rounded-2xl shadow-mauve-400/30">
+        <div className="hidden lg:flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-20 mb-20 py-16 gap-16 bg-[#f5f1eb]/70 rounded-2xl shadow-mauve-400/30">
           {/* Lado Esquerdo: Vídeo da Caixa */}
           <div className="box-video-animate w-full max-w-125 shrink-0">
             <BoxCanvasSequence className="relative w-full aspect-626/405 overflow-hidden opacity-70" />
