@@ -1,13 +1,15 @@
-# CORREÇÃO 1: Atualizado para Node 22 (LTS mais recente) para suportar Next 16 e Vite 7
 FROM node:22-alpine
 
 WORKDIR /app
 
+# Desativa telemetria do Next.js no build e runtime
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
 # Copia os arquivos de dependência
 COPY package*.json ./
 
-# CORREÇÃO 2: Copia a pasta do Prisma ANTES de instalar
-# Isso garante que o 'prisma generate' encontre o schema durante o 'npm ci'
+# Descomente se usar Prisma no projeto:
 # COPY prisma ./prisma/
 
 # Instala dependências

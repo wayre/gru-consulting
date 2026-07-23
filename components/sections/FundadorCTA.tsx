@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 
 export default function FundadorCTA() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -80,10 +81,10 @@ export default function FundadorCTA() {
       className="w-full bg-white text-zinc-900 font-poppins py-20 md:py-28 lg:py-32 overflow-hidden border-t border-zinc-100"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-12 lg:px-20">
-        
+
         {/* Bloco do Fundador */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
+
           {/* Esquerda: Imagem com cantos arredondados */}
           <div
             ref={imageRef}
@@ -109,11 +110,11 @@ export default function FundadorCTA() {
             <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] text-[#B89774] uppercase mb-3 md:mb-4">
               O Fundador
             </span>
-            
+
             <h2 className="font-garamond text-3xl sm:text-4xl lg:text-[40px] font-semibold leading-tight text-[#002047] mb-6 md:mb-8">
               Mauricio Bernardino Grunewald
             </h2>
-            
+
             <div className="space-y-4 md:space-y-6 text-[#5F5955] text-[14px] sm:text-[15px] md:text-[16px] font-light leading-relaxed max-w-2xl">
               <p>
                 Com trajetória iniciada em 1997 no Banco Real e cerca de 16 anos no
@@ -141,7 +142,7 @@ export default function FundadorCTA() {
                   Anos de Mercado
                 </span>
               </div>
-              
+
               <div className="flex flex-col">
                 <span className="font-garamond text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#002047] leading-none mb-2">
                   2018
@@ -163,17 +164,17 @@ export default function FundadorCTA() {
           <h2 className="font-garamond text-2xl sm:text-3xl lg:text-[38px] font-normal leading-tight text-[#002047] max-w-2xl px-4">
             Pronto para expandir suas operações para o mercado global?
           </h2>
-          
-          <button
-            onClick={() => {
-              // Comportamento interativo para agendamento (redirecionamento ou popup)
-              window.open("https://wa.me/message/YOUR_WHATSAPP_LINK", "_blank");
-            }}
+
+          <Link
+            href="/whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-8 md:mt-10 inline-flex items-center justify-center gap-2.5 bg-[#0B0D12] text-white rounded-full px-8 py-4 text-[14px] md:text-[15px] font-medium transition-all duration-300 hover:bg-[#1a1e27] hover:scale-105 active:scale-98 shadow-lg shadow-black/10 cursor-pointer"
           >
             <span className="text-base font-semibold leading-none">+</span>
             <span>Agendar reunião estratégica</span>
-          </button>
+          </Link>
+
         </div>
 
       </div>

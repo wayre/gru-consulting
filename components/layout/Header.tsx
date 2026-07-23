@@ -11,11 +11,10 @@ export function Header() {
 
   // Itens de navegação do menu
   const menuItems = [
-    { label: "Inteligência", href: "#inteligencia" },
-    { label: "Nicho", href: "#nicho" },
-    { label: "Embalagem", href: "#embalagem" },
-    { label: "Método", href: "#metodo" },
-    { label: "Segurança", href: "#seguranca" },
+    { label: "Início", href: "/" },
+    { label: "Sobre", href: "#sobre" },
+    { label: "Serviços", href: "#servicos" },
+    { label: "Diferenciais", href: "#diferenciais" },
     { label: "Contato", href: "#contato" },
   ];
 
@@ -55,7 +54,8 @@ export function Header() {
 
           {/* Botão Falar com Consultor */}
           <Link
-            href="#contato"
+            href="/whatsapp"
+            target="_blank"
             className="inline-flex h-9 items-center justify-center rounded-xs border border-white/70 bg-transparent px-5 text-xs font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black"
           >
             Falar com Consultor

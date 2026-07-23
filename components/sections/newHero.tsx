@@ -316,7 +316,7 @@ export default function NewHero() {
 
             {/* Botão para falar no WhatsApp */}
             <Link
-              href="https://wa.me/5500000000000" // Substituir pelo número real
+              href="/whatsapp" // Substituir pelo número real
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn mt-8 flex h-12 px-20 max-w-283 items-center justify-center rounded-full bg-[#236253] text-[17px] font-medium leading-6.25 text-white shadow-lg shadow-black/30 transition-all duration-300 hover:scale-105 hover:bg-[#1b4c40] focus:outline-none focus:ring-2 focus:ring-[#BAD9CF] focus:ring-offset-2 focus:ring-offset-black"
