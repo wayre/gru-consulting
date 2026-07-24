@@ -10,7 +10,6 @@ export default function Sobre() {
   const textRef = useRef<HTMLParagraphElement>(null);
   const strategyTextRef = useRef<HTMLParagraphElement>(null);
   const intelligenceRef = useRef<HTMLDivElement>(null);
-  const segmentsContainerRef = useRef<HTMLDivElement>(null);
 
   // Efeito para criar a animação de scroll nos textos com GSAP e ScrollTrigger
   useEffect(() => {
@@ -73,50 +72,12 @@ export default function Sobre() {
           },
         });
       }
-
-      // Animação fade-in-up controlada por scroll para os cards dos segmentos atendidos
-      if (segmentsContainerRef.current) {
-        const cards = segmentsContainerRef.current.children;
-        gsap.from(cards, {
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          stagger: 0.4, // Propagação sequencial entre os cards conforme o scroll
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: segmentsContainerRef.current,
-            start: "top 95%", // Inicia quando o topo da seção entra na tela
-            end: "top 65%",   // Completa a animação quando a seção subir um pouco mais
-            scrub: 1.5,       // Vincula o progresso da animação à rolagem do mouse
-          },
-        });
-      }
     });
 
     return () => ctx.revert(); // Limpa as animações e triggers ao desmontar
   }, []);
-
-  // Configuração dos segmentos atendidos com base no design do Figma
-  const segmentos = [
-    {
-      title: "Arte e Cultura",
-      description: "Galerias, museus, curadores e estúdios criativos que exportam e importam obras com a segurança que peças valiosas exigem.",
-      icon: "/ico-segment-art.svg",
-    },
-    {
-      title: "Design e Decoração",
-      description: "Designers, fabricantes de móveis e marcas autorais que operam internacionalmente sem montar estrutura interna.",
-      icon: "/ico-segment-design.svg",
-    },
-    {
-      title: "Indústria e Comércio",
-      description: "Pequenas e médias indústrias iniciantes ou em expansão no comércio exterior, com acesso a especialistas seniores.",
-      icon: "/ico-segment-industry.svg",
-    },
-  ];
-
   return (
-    <section className="about-section w-full bg-white py-16 md:py-24 pt-30 lg:pt-35 lg:pb-42.5 text-zinc-900 font-poppins">
+    <section className="about-section w-full bg-white py-16 md:py-24 pt-30 lg:pt-35 lg:pb-42.5 text-zinc-900 font-poppins" id="sobre">
       <div className="mx-auto max-w-7xl px-10 sm:px-6 lg:px-8">
 
         {/* Bloco de introdução principal da consultoria */}
@@ -204,49 +165,6 @@ export default function Sobre() {
             ))}
           </p>
         </div>
-
-        {/* Sub-seção com os Segmentos Atendidos */}
-        <div className="mt-20 lg:mt-28 flex flex-col items-center">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#6B6057] mb-4">
-            Segmentos Atendidos
-          </span>
-
-          {/* Grid de Cards dos Segmentos Atendidos com divisores internos */}
-          <div
-            ref={segmentsContainerRef}
-            className="w-full md:max-w-210.5 flex flex-col md:flex-row items-center md:items-stretch rounded-sm overflow-hidden gap-2 md:gap-4"
-          >
-            {segmentos.map((seg, idx) => (
-              <div
-                key={idx}
-                className="flex-1 md:bg-[#f8f8f8] md:px-6 md:py-8 lg:px-7 lg:py-9 flex flex-row md:flex-col items-center text-center gap-2 md:gap-5 transition-colors duration-300 md:hover:bg-[#ededed] group md:shadow-[0px_2.34px_2.34px_0px_rgba(0,0,0,0.12)]"
-              >
-                {/* Ícone correspondente do segmento */}
-                <div className="relative flex w-[30vw] md:w-15 h-15 transition-transform duration-300 group-hover:scale-110 scale-130 md:scale-100">
-                  <Image
-                    src={seg.icon}
-                    alt={`Ícone do segmento ${seg.title}`}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-
-                <div className="w-full flex flex-col items-start md:items-center">
-                  {/* Título do segmento usando a fonte serifada EB Garamond */}
-                  <h3 className="text-[19.75px] font-medium text-[#131B26] mt-2 text-left md:text-center">
-                    {seg.title}
-                  </h3>
-
-                  {/* Descrição resumida do segmento */}
-                  <p className="text-[15px] md:text-[17.5px] text-[#131B26]/70 leading-relaxed max-w-85 md:max-w-53.75 text-left md:text-center">
-                    {seg.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
       </div>
     </section>
   );
