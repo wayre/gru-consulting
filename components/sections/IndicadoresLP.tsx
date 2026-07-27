@@ -35,26 +35,26 @@ export default function IndicadoresLP() {
   }, []);
 
   const indicadores = [
-    "Atendimento personalizado",
-    "Especialistas em Comércio Exterior",
-    "Operações nacionais e internacionais",
-    "Suporte em todas as etapas",
+    "Atendimento\npersonalizado",
+    "Especialistas em\nComércio Exterior",
+    "Operações nacionais\ne internacionais",
+    "Suporte em\ntodas as etapas",
   ];
 
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#11141D] py-8 sm:py-10 border-b border-white/5"
+      className="w-full bg-[#11141D] py-8 sm:py-10 border-b border-white/5 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-4 items-center justify-between">
+        <div className="flex flex-row gap-0 md:gap-3 lg:gap-6 items-center  justify-center flex-wrap md:flex-nowrap">
           {indicadores.map((texto, idx) => (
             <div
               key={idx}
-              className="indicador-item flex items-center gap-3.5 py-2 px-3 rounded-lg hover:bg-white/2 transition-colors duration-300"
+              className="indicador-item grid grid-cols-[20px_140px] lg:grid-cols-[20px_160px] lg:grid-cols-[20px_1fr] items-center gap-3.5 py-2 px-3 rounded-lg hover:bg-white/2 transition-colors duration-300 min-w-35"
             >
               {/* Ícone de Check Elegante */}
-              <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#E5B584]/10 border border-[#E5B584]/30 flex items-center justify-center">
+              <div className="flex shrink-0 w-5 h-5 rounded-full bg-[#E5B584]/10 border border-[#E5B584]/30 items-center  justify-center">
                 <svg
                   className="w-3 h-3 text-[#E5B584]"
                   fill="none"
@@ -72,8 +72,13 @@ export default function IndicadoresLP() {
               </div>
 
               {/* Texto do Indicador */}
-              <span className="font-poppins font-normal text-sm sm:text-[15px] text-white/90 tracking-wide">
-                {texto}
+              <span className="font-poppins font-normal text-[13px] md:text-[11px] lg:text-[16px] text-white/90 tracking-wide whitespace-nowrap">
+                {texto.split("\n").map((linha, i) => (
+                  <React.Fragment key={i}>
+                    {i > 0 && <br />}
+                    {linha}
+                  </React.Fragment>
+                ))}
               </span>
             </div>
           ))}

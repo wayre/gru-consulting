@@ -115,24 +115,26 @@ export default function ServicosLP() {
       className="relative w-full bg-[#0B0D12] overflow-hidden font-poppins text-white py-20 sm:py-24 lg:py-32 border-b border-white/5"
     >
       {/* Detalhes de luz de fundo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#236253]/5 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-[#236253]/5 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start">
-        
+
         {/* Cabeçalho de Texto da Seção */}
-        <div ref={headerRef} className="max-w-3xl flex flex-col gap-4 sm:gap-5 text-left mb-14 lg:mb-20">
-          <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.15em] text-[#E5B584] uppercase">
-            Nossos Serviços
-          </span>
+        <div className="w-full bg-[#191818] bg-[url('/bg-header-nossos-servicos.webp')] bg-position-[right_center] bg-no-repeat bg-contain md:bg-size-[auto_100%] p-6 sm:p-10 md:p-12 lg:p-16 rounded-[24px] border border-white/5 mb-14 lg:mb-20">
+          <div ref={headerRef} className="max-w-2xl flex flex-col gap-4 sm:gap-5 text-left">
+            <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.15em] text-[#E5B584] uppercase">
+              Nossos Serviços
+            </span>
 
-          <h2 className="font-poppins text-3xl sm:text-4xl lg:text-[45px] font-light leading-tight text-white">
-            Soluções para cada etapa da <br className="hidden sm:block" />
-            <span className="font-semibold text-white/95">operação internacional.</span>
-          </h2>
+            <h2 className="font-poppins text-3xl sm:text-4xl lg:text-[45px] font-light leading-tight text-white">
+              Soluções para cada etapa da&nbsp;
+              <span className="font-semibold text-white/95">operação internacional.</span>
+            </h2>
 
-          <p className="font-poppins font-light text-sm sm:text-base lg:text-lg text-white/70 leading-relaxed max-w-2xl">
-            Da estratégia à execução, oferecemos suporte completo para importar, exportar e conduzir operações internacionais com segurança.
-          </p>
+            <p className="font-poppins font-light text-sm sm:text-base lg:text-lg text-white/70 leading-relaxed max-w-2xl">
+              Da estratégia à execução, oferecemos suporte completo para importar, exportar e conduzir operações internacionais com segurança.
+            </p>
+          </div>
         </div>
 
         {/* Grid de Cards dos Serviços com Efeitos Glassmorphism */}

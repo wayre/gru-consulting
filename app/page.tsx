@@ -26,7 +26,7 @@ export default function Home() {
         <HeroLP />
 
         {/* Seção 2: Indicadores de Confiança */}
-        <IndicadoresLP />
+        {/* <IndicadoresLP /> */}
 
         {/* Seção 3: Nossos Serviços */}
         <ServicosLP />
