@@ -112,7 +112,7 @@ export default function ServicosLP() {
     <section
       ref={sectionRef}
       id="servicos"
-      className="relative w-full bg-[#0B0D12] overflow-hidden font-poppins text-white py-20 sm:py-24 lg:py-32 border-b border-white/5"
+      className="relative w-full bg-[#0B0D12] overflow-hidden font-poppins text-white py-20 sm:py-24 lg:py-32"
     >
       {/* Detalhes de luz de fundo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-[#236253]/5 rounded-full blur-[180px] pointer-events-none" />
@@ -148,15 +148,17 @@ export default function ServicosLP() {
               <div className="absolute -inset-px bg-linear-to-br from-[#236253]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[20px] pointer-events-none" />
 
               <div className="flex flex-col gap-5 relative z-10">
-                {/* Ícone customizado do Serviço */}
-                <div className="w-12 h-12 rounded-xl bg-white/2 border border-white/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                  {service.icon}
-                </div>
+                <div className="flex flex-row sm:flex-col gap-2 items-center sm:items-start justify-start">
+                  {/* Ícone customizado do Serviço */}
+                  <div className="w-12 h-12 rounded-xl bg-white/2 border border-white/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                    {service.icon}
+                  </div>
 
-                {/* Título do Serviço */}
-                <h3 className="font-poppins text-base sm:text-lg font-semibold text-white tracking-wide">
-                  {service.title}
-                </h3>
+                  {/* Título do Serviço */}
+                  <h3 className="font-poppins text-base sm:text-lg font-semibold text-white tracking-wide">
+                    {service.title}
+                  </h3>
+                </div>
 
                 {/* Descrição Detalhada */}
                 <p className="font-poppins font-light text-xs sm:text-sm text-white/60 leading-relaxed">

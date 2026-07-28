@@ -6,7 +6,7 @@ import HeroLP from "@/components/sections/HeroLP";
 import IndicadoresLP from "@/components/sections/IndicadoresLP";
 import ServicosLP from "@/components/sections/ServicosLP";
 import ProcessoLP from "@/components/sections/ProcessoLP";
-import SobreLP from "@/components/sections/SobreLP";
+import FundadorLP from "@/components/sections/FundadorLP";
 import DiferenciaisLP from "@/components/sections/DiferenciaisLP";
 import SegmentosLP from "@/components/sections/SegmentosLP";
 import FAQ_LP from "@/components/sections/FAQ_LP";
@@ -34,8 +34,8 @@ export default function Home() {
         {/* Seção 4: Como Trabalhamos */}
         <ProcessoLP />
 
-        {/* Seção 5: Sobre a Empresa */}
-        <SobreLP />
+        {/* Seção 5: Sobre o Fundador */}
+        <FundadorLP />
 
         {/* Seção 6: Diferenciais */}
         <DiferenciaisLP />

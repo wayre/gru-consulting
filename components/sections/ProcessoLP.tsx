@@ -67,13 +67,21 @@ export default function ProcessoLP() {
     <section
       ref={sectionRef}
       id="como-trabalhamos"
-      className="relative w-full bg-white text-zinc-900 font-poppins py-20 sm:py-24 lg:py-32 border-b border-zinc-100 overflow-hidden"
+      className="relative w-full bg-white text-zinc-900 font-poppins pt-15 pb-5 sm:pt-24 sm:pb-10 lg:pt-32 lg:pb-15 border-b border-zinc-100 overflow-hidden"
+      style={{
+        backgroundImage: "url('/bg-como-trabalhamos.webp')",
+        backgroundPosition: "top center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% auto",
+      }}
     >
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start">
-        
+
+      {/* div container contendo um background translucido e com blur no background e cantos arredondados  */}
+      <div className="relative z-10 w-[90vw] max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-start bg-[#D9D9D9]/50 backdrop-blur-3xl/12 rounded-4xl pt-15 pb-10">
+
         {/* Cabeçalho da Seção */}
-        <div className="max-w-3xl flex flex-col gap-4 text-left mb-16 lg:mb-24">
-          <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.15em] text-[#B89774] uppercase">
+        <div className="max-w-3xl flex flex-col gap-4 text-left mb-8 lg:mb-8">
+          <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.15em] text-[#313131] uppercase">
             Como Trabalhamos
           </span>
 
@@ -81,30 +89,30 @@ export default function ProcessoLP() {
             Um processo <br className="hidden sm:block" />
             <span className="font-semibold">simples e transparente.</span>
           </h2>
-          
+
           <p className="font-poppins font-light text-sm sm:text-base text-zinc-600 leading-relaxed max-w-xl">
             Estruturamos as etapas operacionais com clareza para reduzir a percepção de risco e dar previsibilidade em cada etapa do processo.
           </p>
         </div>
 
         {/* Linha do Tempo Horizontal / Vertical */}
-        <div 
+        <div
           ref={stepsRef}
           className="relative grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-6 mt-4 lg:mt-8 w-full"
         >
           {/* Linha conectora em desktop */}
-          <div className="hidden md:block absolute top-[27px] left-[5%] right-[5%] h-0.5 bg-zinc-200/70 -z-10" />
+          <div className="hidden md:block absolute top-6.75 left-[5%] right-[5%] h-0.5 bg-zinc-200/70 -z-10" />
 
           {passos.map((passo, idx) => (
             <div key={idx} className="flex md:flex-col items-start gap-5 md:gap-6 group relative">
-              
+
               {/* Círculo do Número */}
-              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-zinc-50 border border-zinc-200/80 text-[#236253] group-hover:bg-[#236253] group-hover:border-[#236253] group-hover:text-white font-instrument text-lg font-bold flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
+              <div className="shrink-0 w-14 h-14 rounded-full bg-zinc-50 border border-zinc-200/80 text-[#236253] group-hover:bg-[#236253] group-hover:border-[#236253] group-hover:text-white font-instrument text-lg font-bold flex items-center justify-center transition-all duration-300 shadow-sm relative z-10">
                 {passo.numero}
               </div>
 
               {/* Conteúdo Textual */}
-              <div className="flex flex-col gap-2.5 text-left md:pt-1">
+              <div className="flex flex-col gap-2.5 text-left md:pt-1 tracking-tight">
                 <h3 className="font-poppins font-semibold text-sm sm:text-base text-[#002047] group-hover:text-[#236253] transition-colors duration-300">
                   {passo.titulo}
                 </h3>
