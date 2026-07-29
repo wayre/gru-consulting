@@ -67,7 +67,7 @@ export default function ProcessoLP() {
     <section
       ref={sectionRef}
       id="como-trabalhamos"
-      className="relative w-full bg-white text-zinc-900 font-poppins pt-15 pb-5 sm:pt-24 sm:pb-10 lg:pt-32 lg:pb-15 border-b border-zinc-100 overflow-hidden"
+      className="relative w-full bg-white text-zinc-900 font-poppins pt-15 pb-5 sm:pt-24 sm:pb-10 lg:pt-32 lg:pb-15 overflow-hidden"
       style={{
         backgroundImage: "url('/bg-como-trabalhamos.webp')",
         backgroundPosition: "top center",

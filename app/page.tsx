@@ -13,6 +13,7 @@ import FAQ_LP from "@/components/sections/FAQ_LP";
 import CTALocalLP from "@/components/sections/CTALocalLP";
 import ContatoLP from "@/components/sections/ContatoLP";
 import FooterLP from "@/components/sections/FooterLP";
+import Sobre from "@/components/sections/Sobre";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
       <Header />
 
       {/* Conteúdo Principal da Nova Landing Page */}
-      <main className="flex-grow">
+      <main className="grow">
         {/* Seção 1: Hero */}
         <HeroLP />
 
@@ -34,7 +35,10 @@ export default function Home() {
         {/* Seção 4: Como Trabalhamos */}
         <ProcessoLP />
 
-        {/* Seção 5: Sobre o Fundador */}
+        {/* Seção 5: Sobre da Empresa */}
+        <Sobre />
+
+        {/* Seção 6: Sobre o Fundador */}
         <FundadorLP />
 
         {/* Seção 6: Diferenciais */}
