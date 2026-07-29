@@ -3,8 +3,9 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Clientes from "./Clientes";
 
-export default function SegmentosLP() {
+export default function ExpertisesLP() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -93,7 +94,7 @@ export default function SegmentosLP() {
       className="w-full bg-white text-zinc-900 font-poppins py-20 sm:py-24 lg:py-32 border-b border-zinc-100 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 flex flex-col justify-start">
-        
+
         {/* Cabeçalho da Seção */}
         <div ref={headerRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-16 lg:mb-24">
           <div className="lg:col-span-5 flex flex-col gap-4">
@@ -115,7 +116,7 @@ export default function SegmentosLP() {
         </div>
 
         {/* Grid de Cards de Expertise */}
-        <div 
+        <div
           ref={gridRef}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full"
         >
@@ -141,6 +142,9 @@ export default function SegmentosLP() {
             </div>
           ))}
         </div>
+
+        {/* Inserir parceiros em loop na vertical */}
+        <Clientes />
 
       </div>
     </section>

@@ -8,7 +8,7 @@ import ServicosLP from "@/components/sections/ServicosLP";
 import ProcessoLP from "@/components/sections/ProcessoLP";
 import FundadorLP from "@/components/sections/FundadorLP";
 import DiferenciaisLP from "@/components/sections/DiferenciaisLP";
-import SegmentosLP from "@/components/sections/SegmentosLP";
+import ExpertisesLP from "@/components/sections/ExpertisesLP";
 import FAQ_LP from "@/components/sections/FAQ_LP";
 import CTALocalLP from "@/components/sections/CTALocalLP";
 import ContatoLP from "@/components/sections/ContatoLP";
@@ -44,8 +44,8 @@ export default function Home() {
         {/* Seção 6: Diferenciais */}
         <DiferenciaisLP />
 
-        {/* Seção 7: Segmentos Atendidos */}
-        <SegmentosLP />
+        {/* Seção 7: Nossa Expertise */}
+        <ExpertisesLP />
 
         {/* Seção 8: FAQ */}
         <FAQ_LP />
