@@ -1,23 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { gsap } from "gsap";
 import "./newHero.css";
 import Image from "next/image";
 
-const TOTAL_FRAMES = 192;
-const ANIMATION_FPS = 15; // 15 FPS é equivalente a 0.5x do vídeo original de 30 FPS
-
 export default function HeroLP() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
-
-  // Refs para controle do canvas e sequência de imagens
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const animationFrameIdRef = useRef<number | null>(null);
-  const currentFrameRef = useRef(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -44,110 +35,71 @@ export default function HeroLP() {
     return () => ctx.revert();
   }, []);
 
+  // Controla o carregamento, mute e reprodução do vídeo
   useEffect(() => {
-    let isMounted = true;
-    const images: HTMLImageElement[] = [];
-    let loadedCount = 0;
-    let loadTimeout: any;
+    const video = videoRef.current;
+    if (!video) return;
 
-    // Função para obter a URL do frame formatada
-    const getFrameUrl = (index: number) => {
-      const paddedIndex = String(index).padStart(3, "0");
-      return `/frames/map-${paddedIndex}.jpg`;
-    };
+    // Garante programaticamente que o vídeo está mutado para permitir autoplay
+    video.muted = true;
 
-    // Pré-carrega o primeiro frame imediatamente para exibição rápida
-    const firstImg = new window.Image();
-    firstImg.src = getFrameUrl(1);
-    firstImg.onload = () => {
-      if (!isMounted) return;
+    // Configura a velocidade de reprodução para 0.7
+    video.playbackRate = 0.6;
 
-      // Desenha o primeiro frame no canvas
-      const canvas = canvasRef.current;
-      if (canvas) {
-        canvas.width = firstImg.naturalWidth;
-        canvas.height = firstImg.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
-        }
-      }
-
-      // Dispara o estado pronto para ocultar o loading overlay
+    // Safety fallback: garante que o overlay de loading desapareça após 1.5s
+    // mesmo se o vídeo falhar ou demorar para carregar.
+    const fallbackTimeout = setTimeout(() => {
       setIsLoaded(true);
+    }, 1500);
 
-      // Inicia o pré-carregamento em lote dos demais frames após um leve delay para priorizar LCP
-      loadTimeout = setTimeout(() => {
-        if (isMounted) preloadAllFrames();
-      }, 500);
+    // Se o vídeo já estiver com dados suficientes (ex: cacheado)
+    if (video.readyState >= 2) {
+      setIsLoaded(true);
+      clearTimeout(fallbackTimeout);
+    }
+
+    const handleLoadedData = () => {
+      setIsLoaded(true);
+      clearTimeout(fallbackTimeout);
     };
 
-    // Pré-carrega todas as imagens para evitar flickering no loop
-    const preloadAllFrames = () => {
-      for (let i = 1; i <= TOTAL_FRAMES; i++) {
-        const img = new window.Image();
-        img.src = getFrameUrl(i);
-        img.onload = () => {
-          if (!isMounted) return;
-          loadedCount++;
-          if (loadedCount === TOTAL_FRAMES) {
-            startAnimation();
-          }
-        };
-        images.push(img);
-      }
-      imagesRef.current = images;
-    };
+    video.addEventListener("loadeddata", handleLoadedData);
 
-    // Inicia a animação utilizando requestAnimationFrame
-    const startAnimation = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-
-      const firstLoadedImg = imagesRef.current[0];
-      if (firstLoadedImg) {
-        // Redefine a largura e altura do canvas apenas se forem diferentes dos valores atuais,
-        // evitando que o navegador limpe o canvas e cause piscadas visuais (flickering).
-        if (canvas.width !== firstLoadedImg.naturalWidth) {
-          canvas.width = firstLoadedImg.naturalWidth;
-        }
-        if (canvas.height !== firstLoadedImg.naturalHeight) {
-          canvas.height = firstLoadedImg.naturalHeight;
-        }
-      }
-
-      let lastTime = 0;
-      const interval = 1000 / ANIMATION_FPS;
-
-      const render = (time: number) => {
-        if (!isMounted) return;
-
-        if (!lastTime) lastTime = time;
-        const elapsed = time - lastTime;
-
-        if (elapsed >= interval) {
-          const currentImg = imagesRef.current[currentFrameRef.current];
-          if (currentImg && currentImg.complete) {
-            ctx.drawImage(currentImg, 0, 0, canvas.width, canvas.height);
-          }
-          currentFrameRef.current = (currentFrameRef.current + 1) % TOTAL_FRAMES;
-          lastTime = time - (elapsed % interval);
-        }
-
-        animationFrameIdRef.current = requestAnimationFrame(render);
-      };
-
-      animationFrameIdRef.current = requestAnimationFrame(render);
-    };
+    // Tenta iniciar a reprodução imediatamente
+    video.play().catch((err) => {
+      console.log("Autoplay bloqueado no carregamento inicial:", err);
+    });
 
     return () => {
-      isMounted = false;
-      clearTimeout(loadTimeout);
-      if (animationFrameIdRef.current) {
-        cancelAnimationFrame(animationFrameIdRef.current);
-      }
+      video.removeEventListener("loadeddata", handleLoadedData);
+      clearTimeout(fallbackTimeout);
+    };
+  }, []);
+
+  // Controla a reprodução do vídeo com base na visibilidade (Intersection Observer)
+  // para economizar CPU, GPU e bateria quando a seção não estiver na tela.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch((err) => {
+            // Silencia erro se o autoplay for bloqueado temporariamente
+            console.log("Autoplay bloqueado pelo observer:", err);
+          });
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.0 } // 0.0 para tocar assim que qualquer parte aparecer
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
     };
   }, []);
 
@@ -160,13 +112,20 @@ export default function HeroLP() {
       {/* Gradiente de fundo animado */}
       <div className="absolute inset-0 animated-gradient opacity-30" />
 
-      {/* Canvas da animação de sequência de imagens como fundo do Hero */}
-      <canvas
-        ref={canvasRef}
+      {/* Vídeo do mapa mundi como fundo do Hero */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/frames/map-001.jpg"
         className="hero-video-bg"
-      />
-
-
+        onLoadedData={() => setIsLoaded(true)}
+      >
+        <source src="/mapa.mp4" type="video/mp4" />
+        Seu navegador não suporta reprodução de vídeo.
+      </video>
 
       {/* Grade de fundo geométrica semi-transparente */}
       <div className="absolute inset-0 opacity-[0.04]">
@@ -195,7 +154,7 @@ export default function HeroLP() {
       {/* Tela preta de loading posicionada atrás para evitar flickering */}
       <div className={`loading-overlay ${isLoaded ? "fade-out" : ""}`} />
 
-      {/* //imagem city com efeito blend mode sobre o video na parte inferior do screen */}
+      {/* imagem city com efeito blend mode sobre o video na parte inferior do screen */}
       <Image
         src="/city-full-transp.webp"
         alt="City"
@@ -207,7 +166,6 @@ export default function HeroLP() {
 
       {/* degrade de 10% height e 100% screen da cor #0b0d12 para transparente */}
       <div className="absolute bottom-0 left-0 w-full h-[5vh] bg-gradient-to-t from-[#0b0d12] to-transparent" />
-
 
       {/* Conteúdo do Hero */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col items-center text-center">
