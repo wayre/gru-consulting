@@ -1,6 +1,5 @@
-"use client";
-
 import React from "react";
+import type { Metadata } from "next";
 import { Header } from "../components/layout/Header";
 import HeroLP from "@/components/sections/HeroLP";
 import IndicadoresLP from "@/components/sections/IndicadoresLP";
@@ -14,6 +13,59 @@ import CTALocalLP from "@/components/sections/CTALocalLP";
 import ContatoLP from "@/components/sections/ContatoLP";
 import FooterLP from "@/components/sections/FooterLP";
 import Sobre from "@/components/sections/Sobre";
+
+// Metadados ricos em SEO para a página inicial (Landing Page)
+export const metadata: Metadata = {
+  title: "GRU Consulting | Consultoria em Comércio Exterior",
+  description: "Segurança, clareza e previsibilidade em suas operações internacionais de importação, exportação, logística e câmbio.",
+  keywords: [
+    "comércio exterior",
+    "consultoria em comércio exterior",
+    "despacho aduaneiro",
+    "logística internacional",
+    "assessoria cambial",
+    "trading company",
+    "importação e exportação",
+    "GRU Consulting"
+  ],
+  alternates: {
+    canonical: "https://gruconsulting.com.br",
+  },
+  openGraph: {
+    title: "GRU Consulting | Consultoria em Comércio Exterior",
+    description: "Segurança, clareza e previsibilidade em suas operações internacionais de importação, exportação, logística e câmbio.",
+    url: "https://gruconsulting.com.br",
+    siteName: "GRU Consulting",
+    images: [
+      {
+        url: "https://gruconsulting.com.br/hero-logistic.png", // Imagem existente na pasta public usada como fallback para compartilhamento
+        width: 1200,
+        height: 630,
+        alt: "GRU Consulting - Consultoria em Comércio Exterior",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GRU Consulting | Consultoria em Comércio Exterior",
+    description: "Segurança, clareza e previsibilidade em suas operações internacionais de importação, exportação, logística e câmbio.",
+    images: ["https://gruconsulting.com.br/hero-logistic.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
 
 export default function Home() {
   return (

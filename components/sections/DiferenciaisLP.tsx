@@ -148,6 +148,7 @@ export default function DiferenciaisLP() {
             src="/mauricio-full.webp"
             alt="Maurício GRU Consulting"
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 45vw"
             priority
             className="w-full h-full object-contain object-top opacity-75 lg:opacity-100"
           />

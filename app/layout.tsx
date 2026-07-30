@@ -24,7 +24,9 @@ const ebGaramond = EB_Garamond({
   subsets: ["latin"],
 });
 
+// Metadados padrão para o site inteiro, servindo de fallback para outras rotas
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gruconsulting.com.br"),
   title: "GRU Consulting | Consultoria em Comércio Exterior",
   description: "Segurança, clareza e previsibilidade em suas operações internacionais de importação, exportação, logística e câmbio.",
 };
