@@ -111,7 +111,7 @@ export default function ContatoLP() {
             <div className="flex flex-col gap-5 mt-2">
               
               {/* WhatsApp */}
-              <Link
+              <a
                 href="/whatsapp"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -126,7 +126,7 @@ export default function ContatoLP() {
                   <span className="text-[10px] font-semibold tracking-wider text-zinc-400 uppercase">WhatsApp</span>
                   <span className="text-sm font-medium text-[#002047] group-hover:text-[#236253] transition-colors">Iniciar conversa rápida</span>
                 </div>
-              </Link>
+              </a>
 
               {/* E-mail */}
               <a

@@ -315,14 +315,14 @@ export default function NewHero() {
             </p>
 
             {/* Botão para falar no WhatsApp */}
-            <Link
+            <a
               href="/whatsapp" // Substituir pelo número real
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn mt-8 flex h-12 px-20 max-w-283 items-center justify-center rounded-full bg-[#236253] text-[17px] font-medium leading-6.25 text-white shadow-lg shadow-black/30 transition-all duration-300 hover:scale-105 hover:bg-[#1b4c40] focus:outline-none focus:ring-2 focus:ring-[#BAD9CF] focus:ring-offset-2 focus:ring-offset-black"
             >
               Falar no WhatsApp
-            </Link>
+            </a>
           </div>
 
           {/* Coluna Direita: Imagem do Consultor */}

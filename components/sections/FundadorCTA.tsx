@@ -165,7 +165,7 @@ export default function FundadorCTA() {
             Pronto para expandir suas operações para o mercado global?
           </h2>
 
-          <Link
+          <a
             href="/whatsapp"
             target="_blank"
             rel="noopener noreferrer"
@@ -173,7 +173,7 @@ export default function FundadorCTA() {
           >
             <span className="text-base font-semibold leading-none">+</span>
             <span>Agendar reunião estratégica</span>
-          </Link>
+          </a>
 
         </div>
 

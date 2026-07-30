@@ -54,14 +54,14 @@ export default function BrandSection() {
         </svg>
 
         {/* Botão de Contato abaixo do Logo */}
-        <Link
+        <a
           href="/whatsapp"
           target="_blank"
           rel="noopener noreferrer"
           className="h-10 px-7 flex items-center justify-center rounded-[9px] border border-[#B89774]/30 bg-gradient-to-b from-white via-white to-white/20 text-[#002047] text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 hover:scale-105"
         >
           Entre em contato
-        </Link>
+        </a>
       </div>
     </section>
   );

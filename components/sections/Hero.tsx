@@ -153,14 +153,14 @@ export function Hero() {
             </p>
 
             {/* Botão para falar no WhatsApp */}
-            <Link
+            <a
               href="/whatsapp" // Substituir pelo número real
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn mt-8 flex h-[60px] w-full max-w-[283px] items-center justify-center rounded-[15px] bg-[#236253] text-[17px] font-medium leading-[25px] text-white shadow-lg shadow-black/30 transition-all duration-300 hover:scale-105 hover:bg-[#1b4c40] focus:outline-none focus:ring-2 focus:ring-[#BAD9CF] focus:ring-offset-2 focus:ring-offset-black"
             >
               Falar no WhatsAppd
-            </Link>
+            </a>
           </div>
 
           {/* Coluna Direita: Imagem do Consultor */}

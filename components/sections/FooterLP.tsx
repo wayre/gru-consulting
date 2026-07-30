@@ -7,10 +7,10 @@ export default function FooterLP() {
   return (
     <footer className="w-full bg-[#0B0D12] text-white font-poppins border-t border-white/5 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        
+
         {/* Grid do Rodapé */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-16">
-          
+
           {/* Coluna 1: Marca e Descrição */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             <h2 className="font-poppins text-xl font-bold tracking-wide text-white/90">
@@ -136,7 +136,7 @@ export default function FooterLP() {
             © 2026 GRU CONSULTING — TODOS OS DIREITOS RESERVADOS
           </span>
           <Link
-            href="/politica-de-privacidade"
+            href="#"
             className="text-[9px] sm:text-[10px] font-medium tracking-[0.2em] text-white/30 hover:text-white/65 uppercase transition-colors"
           >
             Política de Privacidade

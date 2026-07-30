@@ -236,14 +236,14 @@ export default function HeroLP() {
           {/* Botões de Ação */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto mt-6">
             {/* Botão Primário: WhatsApp / Contato */}
-            <Link
+            <a
               href="/whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center rounded-[4px] bg-white/12 hover:bg-white/20 text-white font-semibold text-sm px-8 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#E5B584]/10 text-center border border-white/20 backdrop-blur-sm"
             >
               Falar com um especialista
-            </Link>
+            </a>
 
           </div>
         </div>

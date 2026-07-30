@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +9,18 @@ import Link from "next/link";
 export default function CTALocalLP() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Define se a tela é menor que 1024px (breakpoint lg do Tailwind)
+    const mediaQuery = window.matchMedia("(max-width: 1023px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener("change", handler);
+
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -40,16 +52,16 @@ export default function CTALocalLP() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#236253] text-white font-poppins h-[870px] lg:h-[515px] overflow-hidden"
+      className="relative w-full bg-[#236253] text-white font-poppins h-217.5 lg:h-[515px] overflow-hidden"
     >
       {/* Imagem de background cobrindo a seção */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <Image
-          src="/fale-com-o-mauricio.webp"
+          src={isMobile ? "/fale-com-o-mauricio-mobile1.webp" : "/fale-com-o-mauricio.webp"}
           alt="Fale com o Maurício"
           fill
           priority
-          className="object-cover object-[calc(80%-10px)_50%] lg:object-center"
+          className="object-cover object-[calc(80%)_50%] lg:object-center"
         />
       </div>
 
@@ -82,7 +94,7 @@ export default function CTALocalLP() {
 
           {/* Botão de Ação */}
           <div className="flex justify-center w-full">
-            <Link
+            <a
               href="/whatsapp"
               target="_blank"
               rel="noopener noreferrer"
@@ -90,7 +102,7 @@ export default function CTALocalLP() {
               style={{ background: "linear-gradient(149deg, #446C63 0%, #232A18 100%)" }}
             >
               Fale diretamente<br />com o Especialista
-            </Link>
+            </a>
           </div>
         </div>
 

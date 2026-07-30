@@ -53,13 +53,13 @@ export function Header() {
         <div className="hidden lg:flex flex-1 items-center justify-end space-x-4">
 
           {/* Botão Falar com Consultor */}
-          <Link
+          <a
             href="/whatsapp"
             target="_blank"
             className="inline-flex h-9 items-center justify-center rounded-xs border border-white/70 bg-transparent px-5 text-xs font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black"
           >
             Falar com Consultor
-          </Link>
+          </a>
         </div>
 
         {/* Botão de Menu Mobile e Alternador de Tema Escuro */}

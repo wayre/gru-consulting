@@ -83,14 +83,14 @@ export default function Sobre() {
               />
             </div>
 
-            <Link
+            <a
               href="/whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-8.25 w-51.75 items-center justify-center rounded-sm bg-[#236253] text-[11px] font-semibold uppercase tracking-wider text-white shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#1a4b3f] hover:scale-[1.02] active:scale-[0.98]"
             >
               Falar no WhatsApp
-            </Link>
+            </a>
           </div>
 
           {/* Lado Direito: Informações Institucionais */}
