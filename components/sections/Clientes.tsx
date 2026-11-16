@@ -30,7 +30,7 @@ export const Clientes = () => {
     <section>
       <p className="text-center text-xl font-semibold text-black/70 my-10">Nossos Clientes Parceiros</p>
       {/* Segunda linha animada: move-se suavemente para a direita */}
-      <div className="w-5/6 m-auto overflow-hidden">
+      <div className="w-5/6 m-auto overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
         <div className="flex w-max animate-marquee-right py-2 bg-black/5 rounded-4xl border border-zinc-800/10">
           {/* Primeiro set de logos */}
           {rotatedLogos.map((logo, index) => (
